@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class MainActivity extends Activity {
 
-    int a;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
