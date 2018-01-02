@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CodeBlocks Banking</string>
+    <string name="title_activity_main_user_page">MainUserPageActivity</string>
+    <string name="investments">Investments</string>
+    <string name="amount">Amount:</string>
+    <string name="checking">Checking</string>
+    <string name="savings">Savings</string>
+    <string name="make_transactions">Make Transactions</string>
+    <string name="pay_bills">Pay Bills</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="log_out">Log Out</string>
 </resources>
