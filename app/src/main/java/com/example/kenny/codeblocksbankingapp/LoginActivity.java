@@ -6,13 +6,15 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
-    Button btnCreateAccount;
+    EditText edtAccessCardNo;
+    EditText edtPassword;
 
-
+    Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +25,11 @@ public class LoginActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), MainUserPageActivity.class);
         startActivity(intent);
 
+        edtAccessCardNo = findViewById(R.id.edt_accessCard);
+        edtPassword = findViewById(R.id.edt_password);
+
+        btnLogin = findViewById(R.id.btn_logIn);
+
     }
+
 }
