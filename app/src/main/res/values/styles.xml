@@ -10,7 +10,7 @@
     </style>
 
     <style name="NewAppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorDarkBlue</item>
         <item name="android:textColorPrimary">@android:color/background_light</item>
         <item name="android:colorBackground">@android:color/background_light</item>
     </style>

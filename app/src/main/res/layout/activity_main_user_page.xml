@@ -32,12 +32,14 @@
 
         <ImageButton
             android:id="@+id/savings_image_button"
-            android:layout_width="312dp"
-            android:layout_height="131dp"
+            style="@android:style/Widget.Material.ImageButton"
+            android:layout_width="310dp"
+            android:layout_height="106dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -47,54 +49,55 @@
 
         <ImageButton
             android:id="@+id/checking_image_button"
-            android:layout_width="312dp"
-            android:layout_height="131dp"
+            android:layout_width="305dp"
+            android:layout_height="106dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_page_toolbar"
-            app:layout_constraintVertical_bias="0.438"
+            app:layout_constraintVertical_bias="0.436"
             app:srcCompat="@mipmap/login_background" />
 
         <ImageButton
             android:id="@+id/investment_image_button"
-            android:layout_width="312dp"
-            android:layout_height="131dp"
+            android:layout_width="308dp"
+            android:layout_height="106dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_page_toolbar"
             app:layout_constraintVertical_bias="0.815"
-            app:srcCompat="@mipmap/login_background"
-            app:layout_constraintHorizontal_bias="0.493" />
+            app:srcCompat="@mipmap/login_background" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:elevation="21dp"
             android:text="@string/savings"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@android:style/TextAppearance.Large"
             android:textSize="30sp"
             android:textStyle="bold"
             android:visibility="visible"
-            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/savings_image_button"
+            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintLeft_toLeftOf="@+id/savings_image_button"
             app:layout_constraintRight_toRightOf="@+id/savings_image_button"
             app:layout_constraintTop_toTopOf="@+id/savings_image_button"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/savings_image_button"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="@+id/savings_image_button"
-            app:layout_constraintHorizontal_bias="0.063"
             app:layout_constraintVertical_bias="0.225" />
 
         <TextView
@@ -105,6 +108,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="20dp"
             android:text="@string/checking"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
@@ -123,19 +127,20 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="143dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="21dp"
             android:text="@string/investments"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
             android:textStyle="bold"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/investment_image_button"
-            app:layout_constraintHorizontal_bias="0.238"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintLeft_toLeftOf="@+id/investment_image_button"
             app:layout_constraintRight_toRightOf="@+id/investment_image_button"
             app:layout_constraintTop_toTopOf="@+id/investment_image_button"
-            app:layout_constraintVertical_bias="0.258" />
+            app:layout_constraintVertical_bias="0.162" />
 
         <TextView
             android:id="@+id/textView5"
@@ -145,15 +150,15 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="21dp"
             android:text="@string/amount"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/savings_image_button"
-            app:layout_constraintHorizontal_bias="0.205"
+            app:layout_constraintHorizontal_bias="0.203"
             app:layout_constraintLeft_toLeftOf="@+id/savings_image_button"
             app:layout_constraintRight_toRightOf="@+id/savings_image_button"
             app:layout_constraintTop_toTopOf="@+id/savings_image_button"
-            app:layout_constraintVertical_bias="0.714" />
+            app:layout_constraintVertical_bias="0.83" />
 
         <TextView
             android:id="@+id/textView18"
@@ -163,15 +168,15 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="21dp"
             android:text="@string/amount"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/checking_image_button"
-            app:layout_constraintHorizontal_bias="0.21"
+            app:layout_constraintHorizontal_bias="0.208"
             app:layout_constraintLeft_toLeftOf="@+id/checking_image_button"
             app:layout_constraintRight_toRightOf="@+id/checking_image_button"
             app:layout_constraintTop_toTopOf="@+id/checking_image_button"
-            app:layout_constraintVertical_bias="0.642" />
+            app:layout_constraintVertical_bias="0.83" />
 
         <TextView
             android:id="@+id/textView20"
@@ -181,15 +186,15 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="21dp"
             android:text="@string/amount"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/investment_image_button"
             app:layout_constraintHorizontal_bias="0.21"
             app:layout_constraintLeft_toLeftOf="@+id/investment_image_button"
             app:layout_constraintRight_toRightOf="@+id/investment_image_button"
             app:layout_constraintTop_toTopOf="@+id/investment_image_button"
-            app:layout_constraintVertical_bias="0.693" />
+            app:layout_constraintVertical_bias="0.83" />
 
     </android.support.constraint.ConstraintLayout>
 
