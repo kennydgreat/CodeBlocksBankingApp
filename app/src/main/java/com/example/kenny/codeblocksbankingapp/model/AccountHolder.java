@@ -16,12 +16,12 @@ public class AccountHolder{
     private int savingsAccountNo;
 
     //funds in account types
-    private double checkingAccountFunds;
-    private double savingsAccountFunds;
+    private String checkingAccountFunds;
+    private String savingsAccountFunds;
 
     private long dbId;
 
-    public AccountHolder(String name, int accessCardNo, String password, int checkingAccountNo, int savingsAccountNo, double checkingAccountFunds, double savingsAccountFunds ){
+    public AccountHolder(String name, int accessCardNo, String password, int checkingAccountNo, int savingsAccountNo, String checkingAccountFunds, String savingsAccountFunds ){
         this.name = name;
         this.accessCardNo =accessCardNo;
         this.password = password;
@@ -31,7 +31,7 @@ public class AccountHolder{
         this.savingsAccountFunds = savingsAccountFunds;
     }
 
-    public AccountHolder(String name, int accessCardNo, String password, int checkingAccountNo, int savingsAccountNo, double checkingAccountFunds, double savingsAccountFunds, long dbId){
+    public AccountHolder(String name, int accessCardNo, String password, int checkingAccountNo, int savingsAccountNo, String checkingAccountFunds, String savingsAccountFunds, long dbId){
         this(name, accessCardNo, password, checkingAccountNo, savingsAccountNo, checkingAccountFunds, savingsAccountFunds);
         this.dbId = dbId;
     }
@@ -78,7 +78,7 @@ public class AccountHolder{
         this.savingsAccountNo = savingsAccountNo;
     }
 
-    public double getCheckingAccountFunds(){
+    public String getCheckingAccountFunds(){
         return checkingAccountFunds;
     }
 
@@ -86,7 +86,7 @@ public class AccountHolder{
         this.checkingAccountFunds = checkingAccountFunds;
     }
 
-    public double getSavingsAccountFunds(){
+    public String getSavingsAccountFunds(){
         return savingsAccountFunds;
     }
 
@@ -101,4 +101,6 @@ public class AccountHolder{
     public void setDbId(long dbId){
         this.dbId = dbId;
     }
+
+
 }

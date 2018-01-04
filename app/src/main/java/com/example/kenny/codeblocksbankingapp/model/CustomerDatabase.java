@@ -6,135 +6,90 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by diego on 2018-01-02.
+ * Created by Diego on 1/4/2018.
  */
 
-public class CustomerDatabase{
+public class CustomerDatabase {
 
-    //instance members for accessing the db
     private SQLiteDatabase database;
     private SQLiteOpenHelper openHelper;
 
-    //db constants
-    public static final String DB_NAME = "customers.db";
-    public static final int DB_VERSION = 1;
+    //Database constants
+    public static final String DB_Name = "customers.db";
+    public static final int DB_Version = 1;
 
-    //table constants for customer entity
-    public static final String CUSTOMERS_TABLE = "Customer";
+    public static final String CUSTOMER_TABLE = "Students";
 
-    public static final String ACCESS_NO = "accessNo";
-    public static final int ACCESS_NO_COLUMN = 0;
+    public static final String CARD_ACCESS_NO = "accessNo";
+    public static final int CARD_ACCESS_NO_COLUMN = 0;
 
-    public static final String NAME = "name";
-    public static final int NAME_COLUMN = 1;
+    public static final String CUSTOMER_NAME = "custName";
+    public static final int CUSTOMER_NAME_COLUMN = 1;
 
-    public static final String PASSWORD = "password";
-    public static final int PASSWORD_COLUMN = 2;
+    public static final String CHECKING_ACCOUNT_FUNDS = "checkAccFunds";
+    public static final int CHECKING_ACCOUNT_FUNDS_COLUMN = 2;
 
-    public static final String CHECKING_ACCOUNT_NUMBER = "CheckAccNo";
-    public static final int CHECKING_ACCOUNT_NUMBER_COLUMN = 3;
+    public static final String SAVINGS_ACCOUNT_FUNDS = "saveAccFunds";
+    public static final int SAVINGS_ACCOUNT_FUNDS_COLUMN = 3;
 
-    public static final String SAVINGS_ACCOUNT_NUMBER = "SavingAccNo";
-    public static final int SAVINGS_ACCOUNT_NUMBER_COLUMN = 4;
+    public static final String CHECKING_ACCOUNT_NO = "checkAccNo";
+    public static final int CHECKING_ACCOUNT_NO_COLUMN = 4;
 
+    public static final String SAVINGS_ACCOUNT_NO = "saveAccNo";
+    public static final int SAVINGS_ACCOUNT_NO_COLUMN = 5;
 
-    //table constants for checking account entity
-    public static final String CHECKING_ACCOUNT_TABLE = "CheckingAccount";
-
-    public static final String CHECKING_ACCOUNT_FUNDS = "funds";
-    public static final int CHECKING_ACCOUNT_FUNDS_COLUMN = 1;
-
-
-    //table constant for savings account entity
-    public static final String SAVINGS_ACCOUNT_TABLE = "SavingsAccount";
-
-    public static final String SAVINGS_ACCOUNT_FUNDS = "funds";
-    public static final int SAVINGS_ACCOUNT_FUNDS_COLUMN = 1;
-
-
-    //DDL create the tables
-
-    //checking account table
-    public static final String CREATE_CHECKING_ACCOUNT_TABLE =
-            "CREATE TABLE " + CHECKING_ACCOUNT_TABLE + " (" +
-                    CHECKING_ACCOUNT_NUMBER + " INTEGER PRIMARY KEY, " +
-                    NAME + " TEXT, " +
-                    CHECKING_ACCOUNT_FUNDS + " TEXT)";
-
-    //savings account table
-    public static final String CREATE_SAVINGS_ACCOUNT_TABLE =
-            "CREATE TABLE " + SAVINGS_ACCOUNT_TABLE + " (" +
-                    SAVINGS_ACCOUNT_NUMBER + " INTEGER PRIMARY KEY, " +
-                    NAME + " TEXT, " +
+    public static final String CREATE_CUSTOMER_TABLE =
+            "CREATE TABLE " + CUSTOMER_TABLE + " (" +
+                    CARD_ACCESS_NO + " INTEGER PRIMARY KEY, " +
+                    CUSTOMER_NAME + " TEXT, " +
+                    CHECKING_ACCOUNT_NO + " TEXT, " +
+                    CHECKING_ACCOUNT_FUNDS + " TEXT, " +
+                    SAVINGS_ACCOUNT_NO + " TEXT, " +
                     SAVINGS_ACCOUNT_FUNDS + " TEXT)";
 
-    //customer table
-    public static final String CREATE_CUSTOMER_TABLE =
-            "CREATE TABLE " + CUSTOMERS_TABLE + " (" +
-                    ACCESS_NO + " INTEGER PRIMARY KEY, " +
-                    NAME + " TEXT, " +
-                    PASSWORD + " TEXT, " +
-                    CHECKING_ACCOUNT_NUMBER + " INTEGER, " +
-                    SAVINGS_ACCOUNT_NUMBER + " INTEGER, " +
-                    "FOREIGN KEY (" + CHECKING_ACCOUNT_NUMBER + ") REFERENCES " +
-                    CHECKING_ACCOUNT_TABLE + "(" + CHECKING_ACCOUNT_NUMBER + "), " +
-                    "FOREIGN KEY (" + SAVINGS_ACCOUNT_NUMBER + ") REFERENCES " +
-                    SAVINGS_ACCOUNT_TABLE + "(" + SAVINGS_ACCOUNT_NUMBER + "))";
 
     public CustomerDatabase(Context context){
-        //initialize openHelper class
-        openHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
+        openHelper = new DBHelper(context, DB_Name, DB_Version);
     }
 
-    private  class DBHelper extends SQLiteOpenHelper{
-
-        public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
-                        int version){
-            super(context, name, factory, version);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase sqLiteDatabase) {
-            sqLiteDatabase.execSQL(CREATE_CHECKING_ACCOUNT_TABLE);
-            sqLiteDatabase.execSQL(CREATE_SAVINGS_ACCOUNT_TABLE);
-            sqLiteDatabase.execSQL(CREATE_CUSTOMER_TABLE);
-
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CUSTOMERS_TABLE + ";" + CHECKING_ACCOUNT_TABLE + ";" + SAVINGS_ACCOUNT_TABLE);
-
-            onCreate(sqLiteDatabase);
-        }
-    }
-
-    /**
-     * Method for populating customer database
-     */
-    public AccountHolder saveAccountHolder(AccountHolder holder){
-        //get writable for db
+    public AccountHolder saveAccHolder(AccountHolder holder){
         database = openHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(ACCESS_NO, holder.getAccessCardNo());
-        values.put(NAME, holder.getName());
-        values.put(PASSWORD, holder.getPassword());
-        values.put(CHECKING_ACCOUNT_NUMBER, holder.getCheckingAccountNo());
-        values.put(SAVINGS_ACCOUNT_NUMBER, holder.getSavingsAccountNo());
+        values.put(CARD_ACCESS_NO, holder.getAccessCardNo());
+        values.put(CUSTOMER_NAME, holder.getName());
         values.put(CHECKING_ACCOUNT_FUNDS, holder.getCheckingAccountFunds());
+        values.put(CHECKING_ACCOUNT_NO, holder.getCheckingAccountNo());
+        values.put(SAVINGS_ACCOUNT_NO, holder.getSavingsAccountNo());
         values.put(SAVINGS_ACCOUNT_FUNDS, holder.getSavingsAccountFunds());
 
-        //id of inserted row and set
-        long dbId = database.insert(CUSTOMERS_TABLE, null, values);
+        long id = database.insert(CUSTOMER_TABLE, null, values);
 
-        holder.setDbId(dbId);
+        holder.setDbId(id);
 
-        //close the db
         database.close();
 
-        //return holder with bdId assigned
         return holder;
+    }
+
+    private static class DBHelper extends SQLiteOpenHelper{
+
+        public DBHelper(Context context, String name, int version){
+            super(context, name, null, version);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL(CREATE_CUSTOMER_TABLE);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
+
+            db.execSQL("DROP TABLE IF EXISTS " + CUSTOMER_TABLE);
+            onCreate(db);
+
+        }
     }
 
 }

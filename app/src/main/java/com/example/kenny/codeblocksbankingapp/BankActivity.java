@@ -1,10 +1,7 @@
 package com.example.kenny.codeblocksbankingapp;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -14,13 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.kenny.codeblocksbankingapp.model.AccountHolder;
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
-
-import java.lang.reflect.Array;
-import android.widget.ImageView;
 
 
 /*This activity is for the app's main user page. It
@@ -61,6 +55,8 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         //get the content of the arrays from strings.xml
         holderNames = getResources().getStringArray(R.array.holder_names);
         accessNo = getResources().getIntArray(R.array.dummy_access_card_no);
@@ -70,8 +66,10 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         checkAccFunds = getResources().getStringArray(R.array.dummy_checking_account_funds);
         savAccFunds = getResources().getStringArray(R.array.dummy_savings_account_funds);
 
-        saveHolder();
-
+        //iterate through all the values in all arrays and create and save the data to the DB
+        for(int i = 0; i < 5; i ++){
+            getAndSaveDummyHolders(i);
+        }
 
         super.onCreate(savedInstanceState);
         /*This if statement is to make the status bar the same color as the toolbar
@@ -94,10 +92,10 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         mainUserPageDrawerLayout = findViewById(R.id.drawer_layout);
         //Making the toolbar function as an actionbar
         setUpActionBar(mainPageToolbar);
-        lauchBankAccountSummaryFragment();
+        launchBankAccountSummaryFragment();
     }
 
-    private void lauchBankAccountSummaryFragment() {
+    private void launchBankAccountSummaryFragment() {
         FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();
         bankAccountsSummaryFragment = new BankAccountsSummaryFragment();
@@ -141,25 +139,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         drawerToggle.syncState();
     }
 
-    //Method for loading the account holder info from resource arrays
-    //and savings them to the customer database
-    public void saveHolder(){
-        CustomerDatabase custDb = new CustomerDatabase(this);
-
-        //loads and saves all 5 holders using the dummy data in arrays
-        for(int i = 0; i < 5; i++){
-            AccountHolder holder = createNewHolder(i);
-
-            custDb.saveAccountHolder(holder);
-        }
-    }
-
-    //Provide the accountHolder constructor with the parameters to create objects
-    private AccountHolder createNewHolder(int index) {
-
-        return new AccountHolder(holderNames[index], accessNo[index], passwords[index], checkAccNo[index], savAccNo[index], Double.valueOf(checkAccFunds[index]), Double.valueOf(savAccFunds[index]));
-
-    }
 
     /*This implement of on onAccountsImageViewButton
     * 1) is for laucnhing the correspondsing fragment depending
@@ -178,4 +157,18 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
             default:
         }
     }
+
+    //Method to create dummy accountHolder objects
+    public void getAndSaveDummyHolders(int i){
+        CustomerDatabase custDb = new CustomerDatabase(BankActivity.this);
+
+        AccountHolder holder = new AccountHolder(
+                holderNames[i], accessNo[i],
+                passwords[i], checkAccNo[i], savAccNo[i],
+                checkAccFunds[i], savAccFunds[i]);
+
+        custDb.saveAccHolder(holder);
+    }
+
+    //Method to save the dummy holders to the database
 }
