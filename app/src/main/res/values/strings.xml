@@ -9,7 +9,6 @@
     <string name="pay_bills">Pay Bills</string>
     <string name="create_an_account">Create an Account</string>
     <string name="log_out">Log Out</string>
-<<<<<<< HEAD
 
     <!-- The following arrays will be used to populate the database with dummy data-->
     <string-array name="holder_names">
@@ -68,10 +67,10 @@
         <item>69000.69</item>
     </string-array>
 
-=======
+
     <string name="title_activity_savings">SavingsActivity</string>
     <string name="amount_for_transaction_listview">Amount</string>
     <string name="date">Date</string>
     <string name="info">Info</string>
->>>>>>> 417cb51ee2eea2b7d4e84ec995e4ef485708ada7
+
 </resources>

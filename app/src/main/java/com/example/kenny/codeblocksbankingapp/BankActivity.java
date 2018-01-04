@@ -14,16 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-<<<<<<< HEAD
 import android.widget.Button;
 
 import com.example.kenny.codeblocksbankingapp.model.AccountHolder;
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
 
 import java.lang.reflect.Array;
-=======
 import android.widget.ImageView;
->>>>>>> 417cb51ee2eea2b7d4e84ec995e4ef485708ada7
+
 
 /*This activity is for the app's main user page. It
 * 1) Has a Navigation Drawer from which the user can access other parts of the app
@@ -40,7 +38,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     private DrawerLayout mainUserPageDrawerLayout;/*
     This is the drawerlayout that contains the navigationdrawer*/
 
-<<<<<<< HEAD
+
     
     //arrays that will store the dummy data
     String[] holderNames;
@@ -51,14 +49,14 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     String[] checkAccFunds;
     String[] savAccFunds;
     
-=======
+
     private FragmentManager fragmentManager = getSupportFragmentManager();
     //This the FragmentManager that will manage all fragments that will
     //attach to this activity (Navigation drawer menu items, account pages,
     // account summary page)
 
     private BankAccountsSummaryFragment bankAccountsSummaryFragment;
->>>>>>> 417cb51ee2eea2b7d4e84ec995e4ef485708ada7
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +140,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
     }
-<<<<<<< HEAD
 
     //Method for loading the account holder info from resource arrays
     //and savings them to the customer database
@@ -158,10 +155,12 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     }
 
     //Provide the accountHolder constructor with the parameters to create objects
-    private AccountHolder createNewHolder(int index){
+    private AccountHolder createNewHolder(int index) {
 
-        return new AccountHolder(holderNames[index],accessNo[index],passwords[index], checkAccNo[index], savAccNo[index], Double.valueOf(checkAccFunds[index]), Double.valueOf(savAccFunds[index]));
-=======
+        return new AccountHolder(holderNames[index], accessNo[index], passwords[index], checkAccNo[index], savAccNo[index], Double.valueOf(checkAccFunds[index]), Double.valueOf(savAccFunds[index]));
+
+    }
+
     /*This implement of on onAccountsImageViewButton
     * 1) is for laucnhing the correspondsing fragment depending
     * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
@@ -178,7 +177,5 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
                 break;
             default:
         }
-
->>>>>>> 417cb51ee2eea2b7d4e84ec995e4ef485708ada7
     }
 }
