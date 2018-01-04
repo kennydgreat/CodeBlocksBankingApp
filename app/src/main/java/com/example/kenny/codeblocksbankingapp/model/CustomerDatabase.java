@@ -66,7 +66,7 @@ public class CustomerDatabase{
             "CREATE TABLE " + SAVINGS_ACCOUNT_TABLE + " (" +
                     SAVINGS_ACCOUNT_NUMBER + " INTEGER PRIMARY KEY, " +
                     NAME + " TEXT, " +
-                    SAVINGS_ACCOUNT_FUNDS + "TEXT)";
+                    SAVINGS_ACCOUNT_FUNDS + " TEXT)";
 
     //customer table
     public static final String CREATE_CUSTOMER_TABLE =
@@ -75,9 +75,9 @@ public class CustomerDatabase{
                     NAME + " TEXT, " +
                     PASSWORD + " TEXT, " +
                     CHECKING_ACCOUNT_NUMBER + " INTEGER, " +
+                    SAVINGS_ACCOUNT_NUMBER + " INTEGER, " +
                     "FOREIGN KEY (" + CHECKING_ACCOUNT_NUMBER + ") REFERENCES " +
                     CHECKING_ACCOUNT_TABLE + "(" + CHECKING_ACCOUNT_NUMBER + "), " +
-                    SAVINGS_ACCOUNT_NUMBER + " INTEGER, " +
                     "FOREIGN KEY (" + SAVINGS_ACCOUNT_NUMBER + ") REFERENCES " +
                     SAVINGS_ACCOUNT_TABLE + "(" + SAVINGS_ACCOUNT_NUMBER + "))";
 
@@ -103,7 +103,7 @@ public class CustomerDatabase{
 
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS" + CUSTOMERS_TABLE + "," + CHECKING_ACCOUNT_TABLE + "," + SAVINGS_ACCOUNT_TABLE);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CUSTOMERS_TABLE + ";" + CHECKING_ACCOUNT_TABLE + ";" + SAVINGS_ACCOUNT_TABLE);
 
             onCreate(sqLiteDatabase);
         }

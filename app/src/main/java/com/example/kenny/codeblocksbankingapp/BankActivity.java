@@ -11,6 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+
+import com.example.kenny.codeblocksbankingapp.model.AccountHolder;
+import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
+
+import java.lang.reflect.Array;
 
 /*This activity is for the app's main user page. It
 * 1) Has a Navigation Drawer from which the user can access other parts of the app
@@ -27,9 +33,32 @@ public class BankActivity extends AppCompatActivity {
     private DrawerLayout mainUserPageDrawerLayout;/*
     This is the drawerlayout that contains the navigationdrawer*/
 
+    
+    //arrays that will store the dummy data
+    String[] holderNames;
+    int[] accessNo;
+    String[] passwords;
+    int[] checkAccNo;
+    int [] savAccNo;
+    String[] checkAccFunds;
+    String[] savAccFunds;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //get the content of the arrays from strings.xml
+        holderNames = getResources().getStringArray(R.array.holder_names);
+        accessNo = getResources().getIntArray(R.array.dummy_access_card_no);
+        passwords = getResources().getStringArray(R.array.dummy_password);
+        checkAccNo = getResources().getIntArray(R.array.dummy_checking_account_no);
+        savAccNo = getResources().getIntArray(R.array.dummy_savings_account_no);
+        checkAccFunds = getResources().getStringArray(R.array.dummy_checking_account_funds);
+        savAccFunds = getResources().getStringArray(R.array.dummy_savings_account_funds);
+
+        saveHolder();
+
+
         super.onCreate(savedInstanceState);
         /*This if statement is to make the status bar the same color as the toolbar
         * for API 21 and up */
@@ -38,6 +67,8 @@ public class BankActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
+
+
 
         /*Setting this Activity's Theme
         * To use a Naviagtion drawer the Theme has to be a AppCompat theme
@@ -84,5 +115,24 @@ public class BankActivity extends AppCompatActivity {
         mainUserPageDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
+    }
+
+    //Method for loading the account holder info from resource arrays
+    //and savings them to the customer database
+    public void saveHolder(){
+        CustomerDatabase custDb = new CustomerDatabase(this);
+
+        //loads and saves all 5 holders using the dummy data in arrays
+        for(int i = 0; i < 5; i++){
+            AccountHolder holder = createNewHolder(i);
+
+            custDb.saveAccountHolder(holder);
+        }
+    }
+
+    //Provide the accountHolder constructor with the parameters to create objects
+    private AccountHolder createNewHolder(int index){
+
+        return new AccountHolder(holderNames[index],accessNo[index],passwords[index], checkAccNo[index], savAccNo[index], Double.valueOf(checkAccFunds[index]), Double.valueOf(savAccFunds[index]));
     }
 }

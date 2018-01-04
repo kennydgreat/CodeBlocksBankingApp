@@ -21,16 +21,18 @@ public class AccountHolder{
 
     private long dbId;
 
-    public AccountHolder(String name, int accessCardNo, String password, int checkingAccountNo, int savingsAccountNo ){
+    public AccountHolder(String name, int accessCardNo, String password, int checkingAccountNo, int savingsAccountNo, double checkingAccountFunds, double savingsAccountFunds ){
         this.name = name;
         this.accessCardNo =accessCardNo;
         this.password = password;
         this.checkingAccountNo = checkingAccountNo;
         this.savingsAccountNo = savingsAccountNo;
+        this.checkingAccountFunds = checkingAccountFunds;
+        this.savingsAccountFunds = savingsAccountFunds;
     }
 
-    public AccountHolder(String name, int accessCardNo, String password, int checkingAccountNo, int savingsAccountNo, long dbId){
-        this(name, accessCardNo, password, checkingAccountNo, savingsAccountNo);
+    public AccountHolder(String name, int accessCardNo, String password, int checkingAccountNo, int savingsAccountNo, double checkingAccountFunds, double savingsAccountFunds, long dbId){
+        this(name, accessCardNo, password, checkingAccountNo, savingsAccountNo, checkingAccountFunds, savingsAccountFunds);
         this.dbId = dbId;
     }
 

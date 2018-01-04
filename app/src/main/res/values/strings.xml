@@ -9,4 +9,62 @@
     <string name="pay_bills">Pay Bills</string>
     <string name="create_an_account">Create an Account</string>
     <string name="log_out">Log Out</string>
+
+    <!-- The following arrays will be used to populate the database with dummy data-->
+    <string-array name="holder_names">
+        <item>Bob Dbuilder</item>
+        <item>Mark Low</item>
+        <item>Jones Jones</item>
+        <item>Indiana Jones</item>
+        <item>Justin Time</item>
+    </string-array>
+
+    <integer-array name="dummy_access_card_no">
+        <item>100200300</item>
+        <item>200300400</item>
+        <item>500600700</item>
+        <item>800900100</item>
+        <item>700500200</item>
+    </integer-array>
+
+    <string-array name="dummy_password">
+        <item>password1</item>
+        <item>password2</item>
+        <item>password3</item>
+        <item>password4</item>
+        <item>password5</item>
+    </string-array>
+
+    <integer-array name="dummy_checking_account_no">
+        <item>1234</item>
+        <item>1235</item>
+        <item>1236</item>
+        <item>1237</item>
+        <item>1238</item>
+    </integer-array>
+
+    <integer-array name="dummy_savings_account_no">
+        <item>4321</item>
+        <item>5321</item>
+        <item>6321</item>
+        <item>7321</item>
+        <item>8321</item>
+    </integer-array>
+
+    <string-array name="dummy_checking_account_funds">
+        <item>1000</item>
+        <item>1400</item>
+        <item>50000</item>
+        <item>3750</item>
+        <item>44300</item>
+    </string-array>
+
+    <string-array name="dummy_savings_account_funds">
+        <item>77000</item>
+        <item>2000000</item>
+        <item>14000.43</item>
+        <item>9999.98</item>
+        <item>69000.69</item>
+    </string-array>
+
 </resources>
