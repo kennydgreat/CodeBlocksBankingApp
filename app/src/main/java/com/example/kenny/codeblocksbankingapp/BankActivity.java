@@ -4,6 +4,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,18 +14,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+<<<<<<< HEAD
 import android.widget.Button;
 
 import com.example.kenny.codeblocksbankingapp.model.AccountHolder;
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
 
 import java.lang.reflect.Array;
+=======
+import android.widget.ImageView;
+>>>>>>> 417cb51ee2eea2b7d4e84ec995e4ef485708ada7
 
 /*This activity is for the app's main user page. It
 * 1) Has a Navigation Drawer from which the user can access other parts of the app
 * 2) Handles the lanuching of fragments for each navigation item
 * 3) Has buttons from which users can access their accounts*/
-public class BankActivity extends AppCompatActivity {
+public class BankActivity extends AppCompatActivity implements BankAccountsSummaryFragment.OnAccountsImageViewButtonClickListener {
     //Fields
     Toolbar mainPageToolbar; /*This will be used to
     1) Allow the user to access the navigation drawer
@@ -33,6 +40,7 @@ public class BankActivity extends AppCompatActivity {
     private DrawerLayout mainUserPageDrawerLayout;/*
     This is the drawerlayout that contains the navigationdrawer*/
 
+<<<<<<< HEAD
     
     //arrays that will store the dummy data
     String[] holderNames;
@@ -43,6 +51,14 @@ public class BankActivity extends AppCompatActivity {
     String[] checkAccFunds;
     String[] savAccFunds;
     
+=======
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    //This the FragmentManager that will manage all fragments that will
+    //attach to this activity (Navigation drawer menu items, account pages,
+    // account summary page)
+
+    private BankAccountsSummaryFragment bankAccountsSummaryFragment;
+>>>>>>> 417cb51ee2eea2b7d4e84ec995e4ef485708ada7
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +96,16 @@ public class BankActivity extends AppCompatActivity {
         mainUserPageDrawerLayout = findViewById(R.id.drawer_layout);
         //Making the toolbar function as an actionbar
         setUpActionBar(mainPageToolbar);
+        lauchBankAccountSummaryFragment();
+    }
+
+    private void lauchBankAccountSummaryFragment() {
+        FragmentTransaction fragmentTransaction =
+                fragmentManager.beginTransaction();
+        bankAccountsSummaryFragment = new BankAccountsSummaryFragment();
+        fragmentTransaction.add(R.id.main_user_page_container
+                , bankAccountsSummaryFragment);
+        fragmentTransaction.commit();
     }
 
 
@@ -116,6 +142,7 @@ public class BankActivity extends AppCompatActivity {
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
     }
+<<<<<<< HEAD
 
     //Method for loading the account holder info from resource arrays
     //and savings them to the customer database
@@ -134,5 +161,24 @@ public class BankActivity extends AppCompatActivity {
     private AccountHolder createNewHolder(int index){
 
         return new AccountHolder(holderNames[index],accessNo[index],passwords[index], checkAccNo[index], savAccNo[index], Double.valueOf(checkAccFunds[index]), Double.valueOf(savAccFunds[index]));
+=======
+    /*This implement of on onAccountsImageViewButton
+    * 1) is for laucnhing the correspondsing fragment depending
+    * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
+    @Override
+    public void onAccountsImageViewButton(int imageViewButtonID) {
+        switch (imageViewButtonID){
+            case R.id.savings_imageview_button:
+                FragmentTransaction fragmentTransaction =
+                        fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.main_user_page_container
+                        , new SavingsPageFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                break;
+            default:
+        }
+
+>>>>>>> 417cb51ee2eea2b7d4e84ec995e4ef485708ada7
     }
 }
