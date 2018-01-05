@@ -1,5 +1,6 @@
 package com.example.kenny.codeblocksbankingapp;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -66,10 +67,11 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         checkAccFunds = getResources().getStringArray(R.array.dummy_checking_account_funds);
         savAccFunds = getResources().getStringArray(R.array.dummy_savings_account_funds);
 
-        //iterate through all the values in all arrays and create and save the data to the DB
-        for(int i = 0; i < 5; i ++){
-            getAndSaveDummyHolders(i);
-        }
+        getAndSaveDummyHolders();
+
+        callLoginActivity();
+
+
 
         super.onCreate(savedInstanceState);
         /*This if statement is to make the status bar the same color as the toolbar
@@ -93,6 +95,8 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         //Making the toolbar function as an actionbar
         setUpActionBar(mainPageToolbar);
         launchBankAccountSummaryFragment();
+
+
     }
 
     private void launchBankAccountSummaryFragment() {
@@ -159,16 +163,38 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     }
 
     //Method to create dummy accountHolder objects
-    public void getAndSaveDummyHolders(int i){
+    public void getAndSaveDummyHolders(){
         CustomerDatabase custDb = new CustomerDatabase(BankActivity.this);
 
-        AccountHolder holder = new AccountHolder(
-                holderNames[i], accessNo[i],
-                passwords[i], checkAccNo[i], savAccNo[i],
-                checkAccFunds[i], savAccFunds[i]);
+        for(int i = 0; i < 5; i++){
+            AccountHolder holder = new AccountHolder(
+                    holderNames[i], accessNo[i],
+                    passwords[i], checkAccNo[i], savAccNo[i],
+                    checkAccFunds[i], savAccFunds[i]);
 
-        custDb.saveAccHolder(holder);
+            custDb.saveAccHolder(holder);
+        }
+
+
     }
 
-    //Method to save the dummy holders to the database
+    //used to call logIn after the database has been loaded
+    public void callLoginActivity(){
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+    }
+
+    //verify the user using method in customer database
+    public boolean isVerifiedUser(String userAccessCard, String userPassword){
+        CustomerDatabase custDb = new CustomerDatabase(this);
+
+        int check = custDb.login(userAccessCard, userPassword);
+
+        if(check == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
