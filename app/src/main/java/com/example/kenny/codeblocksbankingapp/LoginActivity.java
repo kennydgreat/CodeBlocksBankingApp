@@ -8,7 +8,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.kenny.codeblocksbankingapp.model.AccountHolder;
+import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
+
 public class LoginActivity extends Activity {
+
+    //arrays that will store the dummy data
+    String[] holderNames;
+    int[] accessNo;
+    String[] passwords;
+    int[] checkAccNo;
+    int [] savAccNo;
+    String[] checkAccFunds;
+    String[] savAccFunds;
 
     EditText edtAccessCardNo;
     EditText edtPassword;
@@ -16,8 +28,6 @@ public class LoginActivity extends Activity {
 
     Button btnLogin;
 
-    //bank instance
-    BankActivity masterBank = new BankActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +35,16 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //This to test BankActivity remove once we get this activity working
-        //and properly launching BankActivity after user authentication
-        //Intent intent = new Intent(getApplicationContext(), BankActivity.class);
-        //startActivity(intent);
+        //get the content of the arrays from strings.xml
+        holderNames = getResources().getStringArray(R.array.holder_names);
+        accessNo = getResources().getIntArray(R.array.dummy_access_card_no);
+        passwords = getResources().getStringArray(R.array.dummy_password);
+        checkAccNo = getResources().getIntArray(R.array.dummy_checking_account_no);
+        savAccNo = getResources().getIntArray(R.array.dummy_savings_account_no);
+        checkAccFunds = getResources().getStringArray(R.array.dummy_checking_account_funds);
+        savAccFunds = getResources().getStringArray(R.array.dummy_savings_account_funds);
+
+        getAndSaveDummyHolders();
 
 
         edtAccessCardNo = findViewById(R.id.edt_accessCard);
@@ -40,8 +56,6 @@ public class LoginActivity extends Activity {
 
         final BankActivity masterBank = new BankActivity();
 
-
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +63,7 @@ public class LoginActivity extends Activity {
                     String accessNoInput = edtAccessCardNo.getText().toString();
                     String passwordInput = edtPassword.getText().toString();
 
-                    boolean checkVerify = masterBank.isVerifiedUser(accessNoInput, passwordInput);
+                    boolean checkVerify = isVerifiedUser(accessNoInput, passwordInput);
 
                     if(checkVerify){
                         Intent intent = new Intent(getApplicationContext(), BankActivity.class);
@@ -61,10 +75,38 @@ public class LoginActivity extends Activity {
                     edtAccessCardNo.setHint("This is a required field");
                     edtPassword.setHint("This is a required field");
                 }
-
             }
         });
 
+    }
+
+    //Method to create dummy accountHolder objects
+    public void getAndSaveDummyHolders(){
+        CustomerDatabase custDb = new CustomerDatabase(this);
+
+        for(int i = 0; i < 5; i++){
+            AccountHolder holder = new AccountHolder(
+                    holderNames[i], accessNo[i],
+                    passwords[i], checkAccNo[i], savAccNo[i],
+                    checkAccFunds[i], savAccFunds[i]);
+
+            custDb.saveAccHolder(holder);
+        }
+
+
+    }
+
+    //verify the user using method in customer database
+    public boolean isVerifiedUser(String userAccessCard, String userPassword){
+        CustomerDatabase custDb = new CustomerDatabase(getApplicationContext());
+
+        int check = custDb.login(userAccessCard, userPassword);
+
+        if(check == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

@@ -34,7 +34,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     This is the drawerlayout that contains the navigationdrawer*/
 
 
-    
+
     //arrays that will store the dummy data
     String[] holderNames;
     int[] accessNo;
@@ -43,7 +43,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     int [] savAccNo;
     String[] checkAccFunds;
     String[] savAccFunds;
-    
+
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     //This the FragmentManager that will manage all fragments that will
@@ -55,25 +55,8 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
-        //get the content of the arrays from strings.xml
-        holderNames = getResources().getStringArray(R.array.holder_names);
-        accessNo = getResources().getIntArray(R.array.dummy_access_card_no);
-        passwords = getResources().getStringArray(R.array.dummy_password);
-        checkAccNo = getResources().getIntArray(R.array.dummy_checking_account_no);
-        savAccNo = getResources().getIntArray(R.array.dummy_savings_account_no);
-        checkAccFunds = getResources().getStringArray(R.array.dummy_checking_account_funds);
-        savAccFunds = getResources().getStringArray(R.array.dummy_savings_account_funds);
-
-        getAndSaveDummyHolders();
-
-        callLoginActivity();
-
-
-
         super.onCreate(savedInstanceState);
+
         /*This if statement is to make the status bar the same color as the toolbar
         * for API 21 and up */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -81,7 +64,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
-
 
 
         /*Setting this Activity's Theme
@@ -160,28 +142,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
                 break;
             default:
         }
-    }
-
-    //Method to create dummy accountHolder objects
-    public void getAndSaveDummyHolders(){
-        CustomerDatabase custDb = new CustomerDatabase(BankActivity.this);
-
-        for(int i = 0; i < 5; i++){
-            AccountHolder holder = new AccountHolder(
-                    holderNames[i], accessNo[i],
-                    passwords[i], checkAccNo[i], savAccNo[i],
-                    checkAccFunds[i], savAccFunds[i]);
-
-            custDb.saveAccHolder(holder);
-        }
-
-
-    }
-
-    //used to call logIn after the database has been loaded
-    public void callLoginActivity(){
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
     }
 
     //verify the user using method in customer database
