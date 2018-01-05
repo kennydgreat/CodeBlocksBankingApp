@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //get the content of the arrays from strings.xml
+        //get the content of the string-arrays from strings.xml
         holderNames = getResources().getStringArray(R.array.holder_names);
         accessNo = getResources().getIntArray(R.array.dummy_access_card_no);
         passwords = getResources().getStringArray(R.array.dummy_password);
@@ -66,10 +66,12 @@ public class LoginActivity extends Activity {
                     boolean checkVerify = isVerifiedUser(accessNoInput, passwordInput);
 
                     if(checkVerify){
-                        Intent intent = new Intent(getApplicationContext(), BankActivity.class);
-                        startActivity(intent);
+                        //if verified start bank activity and pass the access card number
+                        Intent openBankACcount = new Intent(getApplicationContext(), BankActivity.class);
+                        openBankACcount.putExtra("customerAccountNumber",accessNoInput);
+                        startActivity(openBankACcount);
                     }else{
-                        txtErrorDisplay.setText("Unable to login.");
+                        txtErrorDisplay.setText("* Unable to login. Check that you entered the information correctly.");
                     }
                 }else{
                     edtAccessCardNo.setHint("This is a required field");

@@ -37,7 +37,6 @@ public class AccountHolder{
     }
 
     //getters and setters for the account holder information
-    // will be used by the bank class to update the views and open new accounts
     public String getName(){
         return name;
     }

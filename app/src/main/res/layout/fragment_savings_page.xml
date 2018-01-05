@@ -8,7 +8,7 @@
     tools:context="com.example.kenny.codeblocksbankingapp.SavingsPageFragment">
 
     <TextView
-        android:id="@+id/saving_account_discription_textview"
+        android:id="@+id/txt_savingsAccountDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -28,7 +28,7 @@
         android:layout_marginEnd="8dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txt_SavingsActivityDateDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -48,7 +48,7 @@
         app:layout_constraintVertical_bias="0.312" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_transactionInfoDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -67,7 +67,7 @@
         app:layout_constraintVertical_bias="0.312" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txt_transactionAmountDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

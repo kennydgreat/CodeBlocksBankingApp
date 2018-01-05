@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.kenny.codeblocksbankingapp.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by Diego on 1/4/2018.
  */
@@ -108,9 +110,9 @@ public class CustomerDatabase{
         }
     }
 
-    /**Method will be used by the bank to check if user is authorized */
+    /**Method will be used by the login activity to check if user is authorized */
     public int login(String accessNo, String password){
-        database = openHelper.getWritableDatabase();
+        database = openHelper.getReadableDatabase();
         String[] selectArgs = new String[]{accessNo,password};
 
         try{
@@ -128,6 +130,112 @@ public class CustomerDatabase{
         return 0;
     }
 
+    //get the customer's name
+    public String getCustomerNameByAccessNo(String accessNo){
 
+        String currentCustName;
+
+        database = openHelper.getReadableDatabase();
+
+        String[] selectArgs = new String[] {accessNo};
+
+        Cursor cursor = null;
+        cursor = database.rawQuery("SELECT custName FROM Customers WHERE accessNo =?", selectArgs);
+
+        cursor.moveToNext();
+
+        currentCustName = cursor.getString(cursor.getColumnIndex(CUSTOMER_NAME));
+        cursor.close();
+        database.close();
+
+        return currentCustName;
+
+    }
+
+    //get the customer's checkAccNo
+    public String getCustomerCheckAccNoByAccessNo(String accessNo){
+
+        String currentCustCheckAccNo;
+
+        database = openHelper.getReadableDatabase();
+
+        String[] selectArgs = new String[] {accessNo};
+
+        Cursor cursor = null;
+        cursor = database.rawQuery("SELECT checkAccNo FROM Customers WHERE accessNo =?",selectArgs);
+
+        cursor.moveToNext();
+
+        currentCustCheckAccNo = cursor.getString(cursor.getColumnIndex(CHECKING_ACCOUNT_NO));
+        cursor.close();
+        database.close();
+
+        return currentCustCheckAccNo;
+    }
+
+    //get checking funds
+    public String getCustomerCheckAccFundsByAccessNo(String accessNo){
+
+        String currentCustCheckAccFunds;
+
+        database = openHelper.getReadableDatabase();
+
+        String[] selectArgs = new String[] {accessNo};
+
+        Cursor cursor = null;
+        cursor = database.rawQuery("SELECT checkAccFunds FROM Customers WHERE accessNo =?",selectArgs);
+
+        cursor.moveToNext();
+
+        currentCustCheckAccFunds = cursor.getString(cursor.getColumnIndex(CHECKING_ACCOUNT_FUNDS));
+        cursor.close();
+        database.close();
+
+        return currentCustCheckAccFunds;
+    }
+
+    //get savingsAccNo
+    public String getCustomerSavingsAccNoByAccessNo(String accessNo){
+
+        String currentCustSaveAccNo;
+
+        database = openHelper.getReadableDatabase();
+
+        String[] selectArgs = new String[] {accessNo};
+
+        Cursor cursor = null;
+        cursor = database.rawQuery("SELECT saveAccNo FROM Customers WHERE accessNo =?",selectArgs);
+
+        cursor.moveToNext();
+
+        currentCustSaveAccNo = cursor.getString(cursor.getColumnIndex(SAVINGS_ACCOUNT_NO));
+        cursor.close();
+        database.close();
+
+        return currentCustSaveAccNo;
+
+    }
+
+    //get Savings accFunds
+    public String getCustomerSavingsAccFundsByAccessNo(String accessNo){
+
+        String currentCustSaveAccFunds;
+
+        database = openHelper.getReadableDatabase();
+
+        String[] selectArgs = new String[] {accessNo};
+
+        Cursor cursor = null;
+        cursor = database.rawQuery("SELECT saveAccFunds FROM Customers WHERE accessNo =?",selectArgs);
+
+        cursor.moveToNext();
+
+        currentCustSaveAccFunds = cursor.getString(cursor.getColumnIndex(SAVINGS_ACCOUNT_FUNDS));
+        cursor.close();
+        database.close();
+
+        return currentCustSaveAccFunds;
+
+    }
 
 }
