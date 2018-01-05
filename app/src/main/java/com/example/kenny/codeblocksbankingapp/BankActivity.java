@@ -12,9 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.example.kenny.codeblocksbankingapp.model.AccountHolder;
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
 
 
@@ -44,15 +42,17 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     String[] checkAccFunds;
     String[] savAccFunds;
 
-    //If the user is successfully logged in their access number is
-    //stored in this variable
-    int currentUserAccessNumber;
+    //An intent will be passed by login activity to bank
+    //with the current users card number which will be used by
+    //the bank to update views with user info
+    private String currentCustomerAccessCardNo;
+
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     //This the FragmentManager that will manage all fragments that will
     //attach to this activity (Navigation drawer menu items, account pages,
     // account summary page)
-    private Bundle args = new Bundle();
+
     private BankAccountsSummaryFragment bankAccountsSummaryFragment;
 
 
@@ -80,6 +80,10 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         //Making the toolbar function as an actionbar
         setUpActionBar(mainPageToolbar);
         launchBankAccountSummaryFragment();
+
+        //get the incoming intent
+        Intent incomingIntent = getIntent();
+        currentCustomerAccessCardNo = incomingIntent.getStringExtra("customerAccountNumber");
 
 
     }
@@ -134,33 +138,12 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
     @Override
     public void onAccountsImageViewButton(int imageViewButtonID) {
-
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        AccountPageFragment accountPageFragment = new AccountPageFragment();
-        currentUserAccessNumber = 345;
-        args.putInt("CURRENT USER ACCESS NUMBER",currentUserAccessNumber);
         switch (imageViewButtonID){
-            case R.id.savings_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.savings_imageview_button);
-                accountPageFragment.setArguments(args);
-                fragmentTransaction.replace(R.id.main_user_page_container
-                        , accountPageFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                break;
-            case R.id.checkings_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.checkings_imageview_button);
-                accountPageFragment.setArguments(args);
-                fragmentTransaction.replace(R.id.main_user_page_container
-                        , accountPageFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                break;
-            case R.id.investments_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.investments_imageview_button);
-                accountPageFragment.setArguments(args);
-                fragmentTransaction.replace(R.id.main_user_page_container
-                        , accountPageFragment);
+            case R.id.btn_savingsImage:
+                FragmentTransaction fragmentTransaction =
+                        fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.main_user_page_container
+                        , new SavingsPageFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
@@ -168,17 +151,26 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         }
     }
 
-    //verify the user using method in customer database
-    public boolean isVerifiedUser(String userAccessCard, String userPassword){
-        CustomerDatabase custDb = new CustomerDatabase(this);
+    //ussing the customers access card number, get their name from the database
+    public String[] currentCustomerInfo(String id){
 
-        int check = custDb.login(userAccessCard, userPassword);
+        String[] custInfo;
 
-        if(check == 1){
-            return true;
-        }else{
-            return false;
-        }
+        CustomerDatabase custDb = new CustomerDatabase(getApplicationContext());
+
+        custInfo = new String[]{custDb.getCustomerNameByAccessNo(id),
+                //0
+                custDb.getCustomerCheckAccNoByAccessNo(id),
+                //1
+                custDb.getCustomerCheckAccFundsByAccessNo(id),
+                //2
+                custDb.getCustomerSavingsAccNoByAccessNo(id),
+                //3
+                custDb.getCustomerCheckAccFundsByAccessNo(id)
+        };
+
+        return custInfo;
     }
+
 
 }
