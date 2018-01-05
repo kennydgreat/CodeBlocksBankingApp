@@ -110,14 +110,13 @@ public class CustomerDatabase{
 
     /**Method will be used by the bank to check if user is authorized */
     public int login(String accessNo, String password){
-        String[] selectArgs = new String[]{accessNo,password};
-
         database = openHelper.getWritableDatabase();
+        String[] selectArgs = new String[]{accessNo,password};
 
         try{
             int i = 0;
             Cursor cursor = null;
-            cursor = database.rawQuery("SELECT * FROM CUSTOMER_TABLE WHERE accessNo =? AND password=?",selectArgs);
+            cursor = database.rawQuery("SELECT * FROM Customers WHERE accessNo =? AND password =?", selectArgs);
             cursor.moveToFirst();
             i = cursor.getCount();
             cursor.close();
@@ -125,8 +124,6 @@ public class CustomerDatabase{
             return i;
         }
         catch (Exception e){ e.printStackTrace();}
-
-        database.close();
 
         return 0;
     }

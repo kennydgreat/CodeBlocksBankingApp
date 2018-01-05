@@ -98,7 +98,7 @@ public class LoginActivity extends Activity {
 
     //verify the user using method in customer database
     public boolean isVerifiedUser(String userAccessCard, String userPassword){
-        CustomerDatabase custDb = new CustomerDatabase(getApplicationContext());
+        CustomerDatabase custDb = new CustomerDatabase(this);
 
         int check = custDb.login(userAccessCard, userPassword);
 

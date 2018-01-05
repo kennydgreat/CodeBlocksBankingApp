@@ -144,17 +144,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         }
     }
 
-    //verify the user using method in customer database
-    public boolean isVerifiedUser(String userAccessCard, String userPassword){
-        CustomerDatabase custDb = new CustomerDatabase(this);
 
-        int check = custDb.login(userAccessCard, userPassword);
-
-        if(check == 1){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
 }
