@@ -72,5 +72,12 @@
     <string name="amount_for_transaction_listview">Amount</string>
     <string name="date">Date</string>
     <string name="info">Info</string>
+    <string name="create_an_investment">Create an Investment</string>
+    <string name="current_user_string_key">CURRENT USER ACCESS NUMBER</string>
+    <string name="page_message_for_checking_account_page">Your account balance is $%.2f    Here are your transactions on this account</string>
+    <string name="transactions_message_for_account_page">$%.2f\n\nHere are the transactions for this account.</string>
+    <string name="saving_total">Saving total:</string>
+    <string name="checkings_funds">Funds:</string>
+    <string name="investments_funds">Funds:</string>
 
 </resources>

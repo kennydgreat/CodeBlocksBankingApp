@@ -41,7 +41,6 @@ public class LoginActivity extends Activity {
         final BankActivity masterBank = new BankActivity();
 
 
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

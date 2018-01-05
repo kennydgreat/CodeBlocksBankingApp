@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.example.kenny.codeblocksbankingapp.model.AccountHolder;
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
@@ -32,8 +31,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
 
     private DrawerLayout mainUserPageDrawerLayout;/*
     This is the drawerlayout that contains the navigationdrawer*/
-
-
     
     //arrays that will store the dummy data
     String[] holderNames;
@@ -43,19 +40,37 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     int [] savAccNo;
     String[] checkAccFunds;
     String[] savAccFunds;
-    
+
+    //If the user is successfully logged in their access number is
+    //stored in this variable
+    int currentUserAccessNumber;
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     //This the FragmentManager that will manage all fragments that will
     //attach to this activity (Navigation drawer menu items, account pages,
     // account summary page)
-
+    private Bundle args = new Bundle();
     private BankAccountsSummaryFragment bankAccountsSummaryFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+ /*This if statement is to make the status bar the same color as the toolbar
+        * for API 21 and up */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+
+
+        /*Setting this Activity's Theme
+        * To use a Naviagtion drawer the Theme has to be a AppCompat theme
+        * So a custom theme from appcompat is used */
+        setTheme(R.style.NewAppTheme);
+        setContentView(R.layout.activity_main_user_page);
 
 
         //get the content of the arrays from strings.xml
@@ -69,26 +84,9 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
 
         getAndSaveDummyHolders();
 
-        callLoginActivity();
+       //callLoginActivity();
 
 
-
-        super.onCreate(savedInstanceState);
-        /*This if statement is to make the status bar the same color as the toolbar
-        * for API 21 and up */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
-
-
-
-        /*Setting this Activity's Theme
-        * To use a Naviagtion drawer the Theme has to be a AppCompat theme
-        * So a custom theme from appcompat is used */
-        setTheme(R.style.NewAppTheme);
-        setContentView(R.layout.activity_main_user_page);
 
         //Getting a reference to the drawerlayout of the activity
         mainUserPageDrawerLayout = findViewById(R.id.drawer_layout);
@@ -149,12 +147,33 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
     @Override
     public void onAccountsImageViewButton(int imageViewButtonID) {
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AccountPageFragment accountPageFragment = new AccountPageFragment();
+        currentUserAccessNumber = 345;
+        args.putInt("CURRENT USER ACCESS NUMBER",currentUserAccessNumber);
         switch (imageViewButtonID){
             case R.id.savings_imageview_button:
-                FragmentTransaction fragmentTransaction =
-                        fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.main_user_page_container
-                        , new SavingsPageFragment());
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.savings_imageview_button);
+                accountPageFragment.setArguments(args);
+                fragmentTransaction.replace(R.id.main_user_page_container
+                        , accountPageFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                break;
+            case R.id.checkings_imageview_button:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.checkings_imageview_button);
+                accountPageFragment.setArguments(args);
+                fragmentTransaction.replace(R.id.main_user_page_container
+                        , accountPageFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                break;
+            case R.id.investments_imageview_button:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.investments_imageview_button);
+                accountPageFragment.setArguments(args);
+                fragmentTransaction.replace(R.id.main_user_page_container
+                        , accountPageFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
@@ -191,6 +210,8 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         int check = custDb.login(userAccessCard, userPassword);
 
         if(check == 1){
+            // Storing the user's access no once successfully logged in
+           currentUserAccessNumber = Integer.getInteger(userAccessCard);
             return true;
         }else{
             return false;

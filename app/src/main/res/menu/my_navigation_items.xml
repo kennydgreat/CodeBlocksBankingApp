@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_payment_black_24dp"
         android:title="@string/pay_bills" />
     <item
-        android:id="@+id/create_an_account_menu_item"
+        android:id="@+id/create_an_investment_menu_item"
         android:icon="@drawable/ic_add_box_black_24dp"
-        android:title="@string/create_an_account" />
+        android:title="@string/create_an_investment" />
     <item
         android:id="@+id/logout_menu_item"
         android:icon="@drawable/ic_exit_to_app_black_24dp"

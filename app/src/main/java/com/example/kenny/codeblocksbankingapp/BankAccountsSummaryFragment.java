@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * Created by kenny on 2018-01-03.
@@ -26,6 +29,7 @@ public class BankAccountsSummaryFragment extends Fragment{
     private ImageView savings_imageview_button ;
     private ImageView checkings_imageview_button;
     private ImageView investments_imageview_button;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,14 +80,17 @@ public class BankAccountsSummaryFragment extends Fragment{
         checkings_imageview_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2018-01-03 implement checkings imageview listerner
+
+                onAccountsImageViewButtonClickListener.
+                        onAccountsImageViewButton(R.id.checkings_imageview_button);
             }
         });
 
         investments_imageview_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2018-01-03  implement investments imageview listerner
+                onAccountsImageViewButtonClickListener.
+                        onAccountsImageViewButton(R.id.investments_imageview_button);
             }
         });
     }
