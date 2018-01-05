@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.kenny.codeblocksbankingapp.model.AccountHolder;
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
@@ -31,7 +32,9 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
 
     private DrawerLayout mainUserPageDrawerLayout;/*
     This is the drawerlayout that contains the navigationdrawer*/
-    
+
+
+
     //arrays that will store the dummy data
     String[] holderNames;
     int[] accessNo;
@@ -55,9 +58,9 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
- /*This if statement is to make the status bar the same color as the toolbar
+
+        /*This if statement is to make the status bar the same color as the toolbar
         * for API 21 and up */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -71,22 +74,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         * So a custom theme from appcompat is used */
         setTheme(R.style.NewAppTheme);
         setContentView(R.layout.activity_main_user_page);
-
-
-        //get the content of the arrays from strings.xml
-        holderNames = getResources().getStringArray(R.array.holder_names);
-        accessNo = getResources().getIntArray(R.array.dummy_access_card_no);
-        passwords = getResources().getStringArray(R.array.dummy_password);
-        checkAccNo = getResources().getIntArray(R.array.dummy_checking_account_no);
-        savAccNo = getResources().getIntArray(R.array.dummy_savings_account_no);
-        checkAccFunds = getResources().getStringArray(R.array.dummy_checking_account_funds);
-        savAccFunds = getResources().getStringArray(R.array.dummy_savings_account_funds);
-
-        getAndSaveDummyHolders();
-
-       //callLoginActivity();
-
-
 
         //Getting a reference to the drawerlayout of the activity
         mainUserPageDrawerLayout = findViewById(R.id.drawer_layout);
@@ -181,28 +168,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         }
     }
 
-    //Method to create dummy accountHolder objects
-    public void getAndSaveDummyHolders(){
-        CustomerDatabase custDb = new CustomerDatabase(BankActivity.this);
-
-        for(int i = 0; i < 5; i++){
-            AccountHolder holder = new AccountHolder(
-                    holderNames[i], accessNo[i],
-                    passwords[i], checkAccNo[i], savAccNo[i],
-                    checkAccFunds[i], savAccFunds[i]);
-
-            custDb.saveAccHolder(holder);
-        }
-
-
-    }
-
-    //used to call logIn after the database has been loaded
-    public void callLoginActivity(){
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
-    }
-
     //verify the user using method in customer database
     public boolean isVerifiedUser(String userAccessCard, String userPassword){
         CustomerDatabase custDb = new CustomerDatabase(this);
@@ -210,8 +175,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         int check = custDb.login(userAccessCard, userPassword);
 
         if(check == 1){
-            // Storing the user's access no once successfully logged in
-           currentUserAccessNumber = Integer.getInteger(userAccessCard);
             return true;
         }else{
             return false;

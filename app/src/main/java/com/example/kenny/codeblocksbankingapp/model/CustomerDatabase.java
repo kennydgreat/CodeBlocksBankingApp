@@ -2,15 +2,20 @@ package com.example.kenny.codeblocksbankingapp.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.kenny.codeblocksbankingapp.R;
 
 /**
  * Created by Diego on 1/4/2018.
  */
 
-public class CustomerDatabase {
+public class CustomerDatabase{
+
+
 
     private SQLiteDatabase database;
     private SQLiteOpenHelper openHelper;
@@ -88,7 +93,10 @@ public class CustomerDatabase {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+
+            db.execSQL("DROP TABLE IF EXISTS " + CUSTOMER_TABLE);
             db.execSQL(CREATE_CUSTOMER_TABLE);
+
         }
 
         @Override
@@ -104,6 +112,8 @@ public class CustomerDatabase {
     public int login(String accessNo, String password){
         String[] selectArgs = new String[]{accessNo,password};
 
+        database = openHelper.getWritableDatabase();
+
         try{
             int i = 0;
             Cursor cursor = null;
@@ -111,12 +121,16 @@ public class CustomerDatabase {
             cursor.moveToFirst();
             i = cursor.getCount();
             cursor.close();
+            database.close();
             return i;
         }
         catch (Exception e){ e.printStackTrace();}
 
+        database.close();
+
         return 0;
     }
+
 
 
 }
