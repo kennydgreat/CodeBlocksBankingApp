@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BankActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="Logging in" />
+            android:name=".BankActivity"
+            android:label="@string/title_activity_main_user_page" />
         <activity
             android:name=".AccountPageFragment"
             android:label="@string/title_activity_savings"></activity>
