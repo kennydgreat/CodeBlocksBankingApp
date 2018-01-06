@@ -90,7 +90,7 @@
     <string name="amount_to_send">Amount to send</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
-    <string name="account">Account</string>
+    <string name="account">Account:</string>
     <string name="dollarSignString"> $ %s</string>
     <string name="balanceString">Balance: $ %s</string>
     <string name="noString">No: %s</string>

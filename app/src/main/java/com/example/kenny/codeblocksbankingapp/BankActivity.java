@@ -214,8 +214,8 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         loggingOutDialog.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int id) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+                //killing BackActivity
+                finish();
             }
         });
 

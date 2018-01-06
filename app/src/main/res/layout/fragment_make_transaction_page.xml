@@ -58,11 +58,13 @@
 
     <Spinner
         android:id="@+id/spinner_what_account"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:dropDownWidth="match_parent"
         android:popupBackground="@mipmap/login_background"
@@ -71,10 +73,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.466"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintVertical_bias="0.402"
+        app:layout_constraintHorizontal_bias="0.726" />
 
     <Button
         android:id="@+id/button_make_transaction"
@@ -123,21 +123,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/account"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.275"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366"
-        tools:text="Account"
-        app:layout_constraintHorizontal_bias="0.501"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintVertical_bias="0.396"
+        tools:text="Account:" />
 
     <TextView
         android:id="@+id/txt_account_balance_on_make_transaction_page"
@@ -153,6 +153,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.625"
+        app:layout_constraintVertical_bias="0.64"
         tools:text="Balance" />
 </android.support.constraint.ConstraintLayout>
