@@ -7,12 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+<<<<<<< HEAD
 import android.widget.TextView;
 
 import com.example.kenny.codeblocksbankingapp.BankActivity;
+=======
+import android.widget.ListView;
+
+import java.util.ArrayList;
+>>>>>>> 8c4977b2d894e944babdc16049d4cc865d3cdd5f
 
 /**
- * Created by kenny on 2018-01-03.
+ * Fragment for display the accounts summary page
  */
 
 public class BankAccountsSummaryFragment extends Fragment{
@@ -30,6 +36,7 @@ public class BankAccountsSummaryFragment extends Fragment{
     private ImageView checkings_imageview_button;
     private ImageView investments_imageview_button;
 
+<<<<<<< HEAD
     //Displays for the amounts in each account
     //TODO: add investment amount and account number to database and update the view
     private TextView txt_checkingAmount;
@@ -38,11 +45,17 @@ public class BankAccountsSummaryFragment extends Fragment{
 
     //Displays for the account number
     private TextView txt_savingsAccountDescription;
+=======
+
+
+>>>>>>> 8c4977b2d894e944babdc16049d4cc865d3cdd5f
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
       fragmentView = inflater.inflate(R.layout.fragment_bank_accounts_summary_page, container, false);
+        // Get the values like this
+        //amount.setText(this.getArguments().getInt("SOME STRING KEY FOR THIS INFO"))
         setupClickableImageViews();
         setUpTextViews();
         return fragmentView;
@@ -111,14 +124,17 @@ public class BankAccountsSummaryFragment extends Fragment{
         checkings_imageview_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2018-01-03 implement checkings imageview listerner
+
+                onAccountsImageViewButtonClickListener.
+                        onAccountsImageViewButton(R.id.checkings_imageview_button);
             }
         });
 
         investments_imageview_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2018-01-03  implement investments imageview listerner
+                onAccountsImageViewButtonClickListener.
+                        onAccountsImageViewButton(R.id.investments_imageview_button);
             }
         });
     }
