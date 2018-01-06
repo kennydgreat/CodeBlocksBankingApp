@@ -51,7 +51,9 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     //An intent will be passed by login activity to bank
     //with the current users card number which will be used by
     //the bank to update views with user info
-    public String currentCustomerAccessCardNo;
+    private String currentCustomerAccessCardNo;
+
+    private String[] currentCustomerInfoArray;
 
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -89,9 +91,14 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
 
         //Set up NavigationDrawer
         setUpNavigationDrawer();
+
         //get the incoming intent
         Intent incomingIntent = getIntent();
         currentCustomerAccessCardNo = incomingIntent.getStringExtra("customerAccountNumber");
+
+        currentCustomerInfoArray = currentCustomerInfo(currentCustomerAccessCardNo);
+
+
 
     }
 
@@ -160,24 +167,24 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         int currentUserAccessNumber = 345;
         args.putInt("CURRENT USER ACCESS NUMBER",currentUserAccessNumber);
         switch (imageViewButtonID){
-            case R.id.savings_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.savings_imageview_button);
+            case R.id.btn_savingsImage:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.btn_savingsImage);
                 accountPageFragment.setArguments(args);
                 fragmentTransaction.replace(R.id.main_user_page_container
                         , accountPageFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
-            case R.id.checkings_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.checkings_imageview_button);
+            case R.id.btn_checkingImage:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.btn_checkingImage);
                 accountPageFragment.setArguments(args);
                 fragmentTransaction.replace(R.id.main_user_page_container
                         , accountPageFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
-            case R.id.investments_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.investments_imageview_button);
+            case R.id.btn_investmentsImage:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.btn_investmentsImage);
                 accountPageFragment.setArguments(args);
                 fragmentTransaction.replace(R.id.main_user_page_container
                         , accountPageFragment);
@@ -186,29 +193,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
                 break;
             default:
         }
-    }
-
-    //ussing the customers access card number, get their name from the database
-    public String[] currentCustomerInfo(String id){
-
-        String[] custInfo;
-
-        CustomerDatabase custDb = new CustomerDatabase(getApplicationContext());
-
-        custInfo = new String[]{
-                //0
-                custDb.getCustomerNameByAccessNo(id),
-                //1
-                custDb.getCustomerCheckAccNoByAccessNo(id),
-                //2
-                custDb.getCustomerCheckAccFundsByAccessNo(id),
-                //3
-                custDb.getCustomerSavingsAccNoByAccessNo(id),
-                //4
-                custDb.getCustomerSavingsAccFundsByAccessNo(id)
-        };
-
-        return custInfo;
     }
 
     //This method is the callback method for Navigation Listener
@@ -233,4 +217,33 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         mainUserPageDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //using the customers access card number, get their name from the database
+    public String[] currentCustomerInfo(String id){
+
+        String[] custInfo;
+
+        CustomerDatabase custDb = new CustomerDatabase(getApplicationContext());
+
+        custInfo = new String[]{
+                //0
+                custDb.getCustomerNameByAccessNo(id),
+                //1
+                custDb.getCustomerCheckAccNoByAccessNo(id),
+                //2
+                custDb.getCustomerCheckAccFundsByAccessNo(id),
+                //3
+                custDb.getCustomerSavingsAccNoByAccessNo(id),
+                //4
+                custDb.getCustomerSavingsAccFundsByAccessNo(id)
+        };
+
+        return custInfo;
+    }
+
+    //provide the info of the current user
+    public String[] getCurrentCustomerInfoArray(){
+        return currentCustomerInfoArray;
+    }
+
 }

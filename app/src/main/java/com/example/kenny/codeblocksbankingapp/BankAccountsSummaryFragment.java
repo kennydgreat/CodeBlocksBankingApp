@@ -7,15 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-<<<<<<< HEAD
+
 import android.widget.TextView;
 
 import com.example.kenny.codeblocksbankingapp.BankActivity;
-=======
+
 import android.widget.ListView;
 
 import java.util.ArrayList;
->>>>>>> 8c4977b2d894e944babdc16049d4cc865d3cdd5f
+
 
 /**
  * Fragment for display the accounts summary page
@@ -36,7 +36,7 @@ public class BankAccountsSummaryFragment extends Fragment{
     private ImageView checkings_imageview_button;
     private ImageView investments_imageview_button;
 
-<<<<<<< HEAD
+
     //Displays for the amounts in each account
     //TODO: add investment amount and account number to database and update the view
     private TextView txt_checkingAmount;
@@ -45,10 +45,14 @@ public class BankAccountsSummaryFragment extends Fragment{
 
     //Displays for the account number
     private TextView txt_savingsAccountDescription;
-=======
+
+    //Bankactivity reference
+    private BankActivity masterBank;
+
+    public String[] info;
 
 
->>>>>>> 8c4977b2d894e944babdc16049d4cc865d3cdd5f
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +60,12 @@ public class BankAccountsSummaryFragment extends Fragment{
       fragmentView = inflater.inflate(R.layout.fragment_bank_accounts_summary_page, container, false);
         // Get the values like this
         //amount.setText(this.getArguments().getInt("SOME STRING KEY FOR THIS INFO"))
+
+        masterBank = new BankActivity();
+        info = masterBank.getCurrentCustomerInfoArray();
+        setUpTextViews();
+
+
         setupClickableImageViews();
         setUpTextViews();
         return fragmentView;
@@ -85,22 +95,17 @@ public class BankAccountsSummaryFragment extends Fragment{
     }
 
     public void setUpTextViews(){
-
-        String[] loadCustomerInfo;
-        BankActivity masterBank = new BankActivity();
-
         txt_checkingAmount = fragmentView.findViewById(R.id.txt_checkingAmountDisplay);
         txt_savingsAmount = fragmentView.findViewById(R.id.txt_savingsAmountDisplay);
         txt_InvestmentAmount = fragmentView.findViewById(R.id.txt_investmentsAmountDisplay);
 
-        txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_savingsAccountDescription);
+        txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_accounts_balance_discription);
 
-        loadCustomerInfo = masterBank.currentCustomerInfo(masterBank.currentCustomerAccessCardNo);
 
-        txt_savingsAmount.setText(loadCustomerInfo[4]);
-        txt_checkingAmount.setText(loadCustomerInfo[2]);
+        txt_savingsAmount.setText(info[4]);
+        txt_checkingAmount.setText(info[2]);
 
-        txt_savingsAccountDescription.setText(loadCustomerInfo[3]);
+        txt_savingsAccountDescription.setText(info[3]);
 
 
 
@@ -126,7 +131,7 @@ public class BankAccountsSummaryFragment extends Fragment{
             public void onClick(View view) {
 
                 onAccountsImageViewButtonClickListener.
-                        onAccountsImageViewButton(R.id.checkings_imageview_button);
+                        onAccountsImageViewButton(R.id.btn_checkingImage);
             }
         });
 
@@ -134,7 +139,7 @@ public class BankAccountsSummaryFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 onAccountsImageViewButtonClickListener.
-                        onAccountsImageViewButton(R.id.investments_imageview_button);
+                        onAccountsImageViewButton(R.id.btn_investmentsImage);
             }
         });
     }
