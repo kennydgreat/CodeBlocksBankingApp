@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
 
@@ -36,14 +37,14 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     Toolbar mainPageToolbar; /*This will be used to
     1) Allow the user to access the navigation drawer
     */
-    private ActionBarDrawerToggle  drawerToggle;/*
+    public ActionBarDrawerToggle  drawerToggle;/*
     1) This, when attached the toolbar, allows uses to access the navigation drawer*/
 
     private DrawerLayout mainUserPageDrawerLayout;/*
     This is the drawerlayout that contains the navigationdrawer*/
 
     //The NavigationDraw View
-    private NavigationView navigationView;
+    public NavigationView navigationView;
 
     //arrays that will store the dummy data
     String[] holderNames;
@@ -57,17 +58,19 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     //An intent will be passed by login activity to bank
     //with the current users card number which will be used by
     //the bank to update views with user info
-    private String currentCustomerAccessCardNo;
+    public String currentCustomerAccessCardNo;
 
     private String[] currentCustomerInfoArray;
 
-
-    private FragmentManager fragmentManager = getSupportFragmentManager();
     //This the FragmentManager that will manage all fragments that will
     //attach to this activity (Navigation drawer menu items, account pages,
     // account summary page)
-    private Bundle args = new Bundle();
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+
+
     private BankAccountsSummaryFragment bankAccountsSummaryFragment;
+
+    public TextView txtUserNameDisplay;
 
 
     @Override
@@ -81,7 +84,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
-
 
         /*Setting this Activity's Theme
         * To use a Naviagtion drawer the Theme has to be a AppCompat theme
@@ -103,24 +105,29 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         currentCustomerAccessCardNo = incomingIntent.getStringExtra("customerAccountNumber");
 
         currentCustomerInfoArray = currentCustomerInfo(currentCustomerAccessCardNo);
+
         launchBankAccountSummaryFragment();
+
+        //display customer name on navegation header with welcome message
+        txtUserNameDisplay = findViewById(R.id.txt_userNameDisplay);
+        View headerView = navigationView.getHeaderView(0);
+        txtUserNameDisplay = headerView.findViewById(R.id.txt_userNameDisplay);
+        txtUserNameDisplay.setText(getResources().getString(R.string.welcomeString, currentCustomerInfoArray[0]));
 
 
     }
 
     private void launchBankAccountSummaryFragment() {
-        FragmentTransaction fragmentTransaction =
-                fragmentManager.beginTransaction();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         bankAccountsSummaryFragment = new BankAccountsSummaryFragment();
+
+        //pass the info array in a bundle
         Bundle args = new Bundle();
         args.putStringArray("CURRENT CUSTOMER INFO ARRAY", currentCustomerInfoArray);
-        ///Put info into args bundle here
-        //
 
-       /// for example args.putInt();
         bankAccountsSummaryFragment.setArguments(args);
-        fragmentTransaction.replace(R.id.main_user_page_container
-                , bankAccountsSummaryFragment);
+        fragmentTransaction.replace(R.id.main_user_page_container, bankAccountsSummaryFragment);
         fragmentTransaction.commit();
     }
 
@@ -158,21 +165,24 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
     }
+
     //This method sets up the NavigationDrawer
     public void setUpNavigationDrawer(){
         navigationView = findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
     /*This implement of on onAccountsImageViewButton
     * 1) is for laucnhing the correspondsing fragment depending
     * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
+
     @Override
     public void onAccountsImageViewButton(int imageViewButtonID) {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         AccountPageFragment accountPageFragment = new AccountPageFragment();
-        int currentUserAccessNumber = 345;
-        args.putInt("CURRENT USER ACCESS NUMBER",currentUserAccessNumber);
+        Bundle args = new Bundle();
+        args.putStringArray("CURRENT CUSTOMER INFO ARRAY", currentCustomerInfoArray);
         switch (imageViewButtonID){
             case R.id.btn_savingsImage:
                 args.putInt("IMAGEVIEW BUTTON ID",R.id.btn_savingsImage);

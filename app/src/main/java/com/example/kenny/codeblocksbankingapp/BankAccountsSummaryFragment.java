@@ -92,23 +92,14 @@ public class BankAccountsSummaryFragment extends Fragment{
         public void onAccountsImageViewButton(int imageViewButtonID);
     }
 
+    //populate views in this fragment
     public void setUpTextViews(){
         txt_checkingAmount = fragmentView.findViewById(R.id.txt_checkingAmountDisplay);
         txt_savingsAmount = fragmentView.findViewById(R.id.txt_savingsAmountDisplay);
         txt_InvestmentAmount = fragmentView.findViewById(R.id.txt_investmentsAmountDisplay);
 
-       // txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_accounts_balance_discription);
-
-        //txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_savingsAccountDescription);
-
-
-
         txt_savingsAmount.setText(info[4]);
         txt_checkingAmount.setText(info[2]);
-
-        //txt_savingsAccountDescription.setText(info[3]);
-
-
 
     }
     /*This methods helps sets uo the image view buttons.

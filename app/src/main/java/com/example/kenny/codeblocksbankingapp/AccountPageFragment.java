@@ -13,6 +13,8 @@ import com.example.kenny.codeblocksbankingapp.db.TransactionsDb;
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
 import com.example.kenny.codeblocksbankingapp.model.Transactions;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /*This fragment handles the Savings Account page where users can
@@ -22,21 +24,24 @@ public class AccountPageFragment extends Fragment {
     //Fields
 // The root UI of the fragment
    private View fragmentView;
-    //This textview is tells the user their account balance
-    // and summary about their Savings account
-   private TextView first_account_discription_textview;
 
-   private TextView second_account_discription_textview ;
+   //text views to display account information
+   public TextView txtAccountBalance;
+   public TextView txtAccountNumber;
 
 
     //This listView is for the list of transactions on the checking
     // account
-   private ListView transaction_listview;
+   public ListView transaction_listview;
 
     // This list view is for the header of the transaction listView
-
    public int currentUserAccessNo;
-   private int imageViewButtonID;
+   public int imageViewButtonID;
+
+   //info will store current user info passed in from bank
+   public String[] info;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,41 +50,47 @@ public class AccountPageFragment extends Fragment {
         currentUserAccessNo = this.getArguments().getInt("CURRENT USER ACCESS NUMBER");
         imageViewButtonID = this.getArguments().getInt("IMAGEVIEW BUTTON ID");
         fragmentView = inflater.inflate(R.layout.account_page, container, false);
+
+        info = getArguments().getStringArray("CURRENT CUSTOMER INFO ARRAY");
+
         setUpViews(imageViewButtonID);
         displayTransactions(imageViewButtonID);
         return fragmentView;
     }
+
     //This method sets up the view to display account information
     //depending on what account is to displayed on fragment
     public void setUpViews(int imageViewButtonID){
         if(imageViewButtonID == R.id.btn_savingsImage){
-            first_account_discription_textview = fragmentView.
-                    findViewById(R.id.txt_accounts_balance_discription);
-            second_account_discription_textview = fragmentView.
-                    findViewById(R.id.txt_accounts_transactions_discription);
-            first_account_discription_textview.setText(getResources().getString(R.string.saving_total));
-            second_account_discription_textview.setText(String.format(
-                    getResources().getString(R.string.transactions_message_for_account_page), 500.00));
+            
+            txtAccountBalance = fragmentView.findViewById(R.id.txt_accountBalance);
+            txtAccountNumber = fragmentView.findViewById(R.id.txt_accountNumber);
+
+            //set the views with the info
+            txtAccountNumber.setText(getResources().getString(R.string.noString, info[3]));
+            txtAccountBalance.setText(getResources().getString(R.string.balanceString, info[4]));
         }
 
         if(imageViewButtonID == R.id.btn_checkingImage){
-            first_account_discription_textview = fragmentView.
-                    findViewById(R.id.txt_accounts_balance_discription);
-            second_account_discription_textview = fragmentView.
-                    findViewById(R.id.txt_accounts_transactions_discription);
-            first_account_discription_textview.setText(getResources().getString(R.string.checkings_funds));
-            second_account_discription_textview.setText(String.format(
-                    getResources().getString(R.string.transactions_message_for_account_page), 500.00));
+            txtAccountBalance = fragmentView.findViewById(R.id.txt_accountBalance);
+            txtAccountNumber = fragmentView.findViewById(R.id.txt_accountNumber);
+
+            //set the views with the info
+            txtAccountNumber.setText(getResources().getString(R.string.noString, info[1]));
+            txtAccountBalance.setText(getResources().getString(R.string.balanceString, info[2]));
         }
 
         if(imageViewButtonID == R.id.btn_investmentsImage){
-            first_account_discription_textview = fragmentView.
-                    findViewById(R.id.txt_accounts_balance_discription);
-            second_account_discription_textview = fragmentView.
-                    findViewById(R.id.txt_accounts_transactions_discription);
-            first_account_discription_textview.setText(getResources().getString(R.string.investments_funds));
-            second_account_discription_textview.setText(String.format(
-                    getResources().getString(R.string.transactions_message_for_account_page), 500.00));
+            //This data is the same as checking account just as a place holder
+            //implementation of an investment account was not places in the database
+            //due to time constraints
+            //TODO: add data about the user investment account in cust database
+            txtAccountBalance = fragmentView.findViewById(R.id.txt_accountBalance);
+            txtAccountNumber = fragmentView.findViewById(R.id.txt_accountNumber);
+
+            //set the views with the info
+            txtAccountNumber.setText(getResources().getString(R.string.noString, info[3]));
+            txtAccountBalance.setText(getResources().getString(R.string.balanceString, info[4]));
         }
 
     }
