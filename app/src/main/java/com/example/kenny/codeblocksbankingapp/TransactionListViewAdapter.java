@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.kenny.codeblocksbankingapp.model.Transactions;
+
 import java.util.List;
 
 /**
@@ -18,11 +20,11 @@ import java.util.List;
  * This Adapter helps with the display of the transaction data of each account
  */
 
-public class TransactionListViewAdapter extends ArrayAdapter<String> {
+public class TransactionListViewAdapter extends ArrayAdapter<Transactions> {
     private Context context;
     private int resource;
 
-    public TransactionListViewAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<String> objects) {
+    public TransactionListViewAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Transactions> objects) {
         super(context, resource, objects);
 
         this.context = context;
@@ -37,15 +39,16 @@ public class TransactionListViewAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(resource, parent, false);
 
         }
+        Transactions transactions = getItem(position);
         //Date Text View for the transaction date
         TextView date_of_transaction_textView = convertView.findViewById(R.id.date_of_transaction_textView);
-        date_of_transaction_textView.setText("Today");
+        date_of_transaction_textView.setText(transactions.getDate());
         //Info
         TextView info_of_transaction_textview = convertView.findViewById(R.id.info_of_transaction_textview);
-        info_of_transaction_textview.setText(getItem(position));
+        info_of_transaction_textview.setText(transactions.getInfo());
         //Amount
         TextView amout_of_transaction_textview = convertView.findViewById(R.id.amout_of_transaction_textview);
-        amout_of_transaction_textview.setText("500");
+        amout_of_transaction_textview.setText(transactions.getAmount());
 
         return convertView;
     }

@@ -61,7 +61,8 @@ public class BankAccountsSummaryFragment extends Fragment{
         //amount.setText(this.getArguments().getInt("SOME STRING KEY FOR THIS INFO"))
 
         masterBank = new BankActivity();
-        info = masterBank.getCurrentCustomerInfoArray();
+       //info = masterBank.getCurrentCustomerInfoArray();
+       info = getArguments().getStringArray("CURRENT CUSTOMER INFO ARRAY");
         //setUpTextViews();
 
 
@@ -98,7 +99,7 @@ public class BankAccountsSummaryFragment extends Fragment{
         txt_savingsAmount = fragmentView.findViewById(R.id.txt_savingsAmountDisplay);
         txt_InvestmentAmount = fragmentView.findViewById(R.id.txt_investmentsAmountDisplay);
 
-        txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_accounts_balance_discription);
+       // txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_accounts_balance_discription);
 
         //txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_savingsAccountDescription);
 
@@ -107,7 +108,7 @@ public class BankAccountsSummaryFragment extends Fragment{
         txt_savingsAmount.setText(info[4]);
         txt_checkingAmount.setText(info[2]);
 
-        txt_savingsAccountDescription.setText(info[3]);
+        //txt_savingsAccountDescription.setText(info[3]);
 
 
 

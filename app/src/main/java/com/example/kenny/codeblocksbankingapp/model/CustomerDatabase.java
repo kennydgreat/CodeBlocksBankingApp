@@ -78,7 +78,7 @@ public class CustomerDatabase{
         values.put(SAVINGS_ACCOUNT_NO, holder.getSavingsAccountNo());
         values.put(SAVINGS_ACCOUNT_FUNDS, holder.getSavingsAccountFunds());
 
-        long id = database.insert(CUSTOMER_TABLE, null, values);
+      long id = database.insert(CUSTOMER_TABLE, null, values);
 
         holder.setDbId(id);
 

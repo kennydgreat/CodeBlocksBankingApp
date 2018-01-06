@@ -87,7 +87,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         mainUserPageDrawerLayout = findViewById(R.id.drawer_layout);
         //Making the toolbar function as an actionbar
         setUpActionBar(mainPageToolbar);
-        launchBankAccountSummaryFragment();
+
 
         //Set up NavigationDrawer
         setUpNavigationDrawer();
@@ -97,7 +97,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         currentCustomerAccessCardNo = incomingIntent.getStringExtra("customerAccountNumber");
 
         currentCustomerInfoArray = currentCustomerInfo(currentCustomerAccessCardNo);
-
+        launchBankAccountSummaryFragment();
 
 
     }
@@ -107,12 +107,13 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
                 fragmentManager.beginTransaction();
         bankAccountsSummaryFragment = new BankAccountsSummaryFragment();
         Bundle args = new Bundle();
+        args.putStringArray("CURRENT CUSTOMER INFO ARRAY", currentCustomerInfoArray);
         ///Put info into args bundle here
         //
 
        /// for example args.putInt();
         bankAccountsSummaryFragment.setArguments(args);
-        fragmentTransaction.add(R.id.main_user_page_container
+        fragmentTransaction.replace(R.id.main_user_page_container
                 , bankAccountsSummaryFragment);
         fragmentTransaction.commit();
     }

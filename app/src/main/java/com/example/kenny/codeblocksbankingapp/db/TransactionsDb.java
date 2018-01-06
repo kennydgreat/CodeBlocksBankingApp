@@ -45,7 +45,7 @@ public class TransactionsDb {
                     " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     DATE + " TEXT, " +
                     ACCOUNT + " TEXT, " +
-                    INFO_COLUMN + " TEXT, " +
+                    INFO + " TEXT, " +
                     AMOUNT + " TEXT)";
 
     public  TransactionsDb(Context context){
@@ -87,7 +87,7 @@ public class TransactionsDb {
                 values);
         transaction.setDbId(dbId);
 
-        transactionsDatabase.close();;
+        transactionsDatabase.close();
         return transaction;
 
 
@@ -101,11 +101,40 @@ public class TransactionsDb {
 
         //the columns needed
       //  String[] cols = new String[] {"date","info","amount"};
-        String sel = "account ==";
-        String[] selArgs = new String[] {"S"};
+        String sel = "account like 'S%'";
 
         Cursor result = transactionsDatabase.query(TRANSACTIONS_TABLE,
-        null, sel, selArgs, null,null, "date");
+        null, sel,null, null,null, "date");
+
+        // filling up arraylist with the results
+        while(result.moveToNext()){
+            Long dbId = result.getLong(ID_COLUMN);
+            String date = result.getString(DATE_COLUMN);
+            String acount = result.getString(ACCOUNT_COLUMN);
+            String info = result.getString(INFO_COLUMN);
+            String amount = result.getString(AMOUNT_COLUMN);
+
+            // putting transaction in arraylist
+            transactions.add(new Transactions(date,acount,info,amount));
+        }
+        result.close();
+        transactionsDatabase.close();
+
+        return  transactions;
+    }
+    //This method querys the Transactions table for
+    //checking accountn transactions and returns an arraylist of transactions
+    //objects
+    public ArrayList<Transactions> getCheckingsTransactions(){
+        ArrayList<Transactions> transactions = new ArrayList<>();
+        transactionsDatabase = openHelper.getReadableDatabase();
+
+        //the columns needed
+        //  String[] cols = new String[] {"date","info","amount"};
+        String sel = "account like 'C%'";
+
+        Cursor result = transactionsDatabase.query(TRANSACTIONS_TABLE,
+                null, sel,null, null,null, "date");
 
         // filling up arraylist with the results
         while(result.moveToNext()){

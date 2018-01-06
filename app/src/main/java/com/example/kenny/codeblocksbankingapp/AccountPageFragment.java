@@ -5,8 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.kenny.codeblocksbankingapp.db.TransactionsDb;
+import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
+import com.example.kenny.codeblocksbankingapp.model.Transactions;
 
 import java.util.ArrayList;
 
@@ -78,23 +83,30 @@ public class AccountPageFragment extends Fragment {
         }
 
     }
-
+    // displays the transaction on the listview depending on what account
+    //button launched the fragment
     private void displayTransactions(int imageViewButtonID){
         transaction_listview = fragmentView.findViewById(R.id.accounts_transaction_listview);
-        ArrayList<String> info = new ArrayList<String>();
-        //{"WTD", "Staples Inc.", "Presto", "Apple Inc."}
-        info.add("WTD");
-        info.add("WTD");
-        info.add("Staples Inc.");
-        info.add("Presto");
-        info.add("Apple Inc.");
+        TransactionsDb transactionsDb = new TransactionsDb(getContext());
+        ArrayList<Transactions> transactions;
         TransactionListViewAdapter transactionListViewAdapter;
 
-        if (imageViewButtonID == R.id.btn_checkingImage){
+        if (imageViewButtonID == R.id.btn_savingsImage){
+            transactions = transactionsDb.getSavingsTransactions();
             transactionListViewAdapter = new TransactionListViewAdapter(
                     this.getContext(),
                     R.layout.transactions_listview_layout,
-                    info
+                    transactions
+            );
+            transaction_listview.setAdapter(transactionListViewAdapter);
+        }
+
+        if (imageViewButtonID == R.id.btn_checkingImage){
+            transactions = transactionsDb.getCheckingsTransactions();
+            transactionListViewAdapter = new TransactionListViewAdapter(
+                    this.getContext(),
+                    R.layout.transactions_listview_layout,
+                    transactions
             );
             transaction_listview.setAdapter(transactionListViewAdapter);
         }

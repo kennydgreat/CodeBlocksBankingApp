@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.kenny.codeblocksbankingapp.db.TransactionsDb;
 import com.example.kenny.codeblocksbankingapp.model.Transactions;
@@ -69,10 +70,15 @@ public class MakeTransactionFragment extends Fragment {
                         new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()),
                         whoToSendToEditText.getText().toString(),
                         amountToSendEditText.getText().toString()
+
                 );
                 //Saving the trnsaction in the database
                 TransactionsDb transactionsDb = new TransactionsDb(getContext());
                 transactionsDb.saveTransaction(transaction);
+                Toast.makeText(getContext(),"Amount have been sent.", Toast.LENGTH_LONG).show();
+
+                amountToSendEditText.setText("");
+                whoToSendToEditText.setText("");
 
             }
         });
@@ -95,10 +101,15 @@ public class MakeTransactionFragment extends Fragment {
 
         spinner.setAdapter(adapter);
 
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 accountChosen = accountChoice[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
