@@ -245,13 +245,11 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     public String[] getCurrentCustomerInfoArray(){
         return currentCustomerInfoArray;
     }
-<<<<<<< HEAD
 
-=======
     //This called by the MakeTransactionFragment when cancel button is clicked
     //it removes the fragment
     public void onMakeTransactionCancelButtonClick(){
         fragmentManager.popBackStack();
     }
->>>>>>> fd817533b616b1e9cfc9526afe0c8cba8df2a6e6
+
 }

@@ -36,10 +36,6 @@ public class BankAccountsSummaryFragment extends Fragment{
     private ImageView checkings_imageview_button;
     private ImageView investments_imageview_button;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fd817533b616b1e9cfc9526afe0c8cba8df2a6e6
     //Displays for the amounts in each account
     //TODO: add investment amount and account number to database and update the view
     private TextView txt_checkingAmount;
@@ -48,7 +44,6 @@ public class BankAccountsSummaryFragment extends Fragment{
 
     //Displays for the account number
     private TextView txt_savingsAccountDescription;
-<<<<<<< HEAD
 
     //Bankactivity reference
     private BankActivity masterBank;
@@ -56,8 +51,6 @@ public class BankAccountsSummaryFragment extends Fragment{
     public String[] info;
 
 
-=======
->>>>>>> fd817533b616b1e9cfc9526afe0c8cba8df2a6e6
 
 
     @Override
@@ -105,11 +98,10 @@ public class BankAccountsSummaryFragment extends Fragment{
         txt_savingsAmount = fragmentView.findViewById(R.id.txt_savingsAmountDisplay);
         txt_InvestmentAmount = fragmentView.findViewById(R.id.txt_investmentsAmountDisplay);
 
-<<<<<<< HEAD
         txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_accounts_balance_discription);
-=======
+
         //txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_savingsAccountDescription);
->>>>>>> fd817533b616b1e9cfc9526afe0c8cba8df2a6e6
+
 
 
         txt_savingsAmount.setText(info[4]);
