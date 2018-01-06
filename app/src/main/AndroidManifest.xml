@@ -25,9 +25,6 @@
         <activity
             android:name=".BankActivity"
             android:label="@string/title_activity_main_user_page" />
-        <activity
-            android:name=".AccountPageFragment"
-            android:label="@string/title_activity_savings"></activity>
     </application>
 
 </manifest>
