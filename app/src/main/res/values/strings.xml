@@ -82,6 +82,8 @@
     <string name="create_an_investment">Create an Investment</string>
     <string name="current_user_string_key">CURRENT USER ACCESS NUMBER</string>
     <string name="saving_total">Funds: %s</string>
+    <string name="page_message_for_checking_account_page">Your account balance is $%.2f    Here are your transactions on this account</string>
+    <string name="transactions_message_for_account_page">$%s\n\nHere are the transactions for this account.</string>
     <string name="checkings_funds">Funds:</string>
     <string name="investments_funds">Funds:</string>
     <string name="who_to_send">Who to send to</string>
@@ -92,5 +94,7 @@
     <string name="balanceString">Balance: $ %s</string>
     <string name="noString">No: %s</string>
     <string name="welcomeString">Welcome %s</string>
+    <string name="checking_account_balance_message_on_make_transaction_page">Checking account balance: $%s</string>
+    <string name="saving_account_balance_message_on_make_transaction_page">Savings account balance: $%s</string>
 
 </resources>

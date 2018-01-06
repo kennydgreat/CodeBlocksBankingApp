@@ -34,17 +34,20 @@ public class AccountPageFragment extends Fragment {
    public ListView transaction_listview;
 
     // This list view is for the header of the transaction listView
+
    public int currentUserAccessNo;
-   public int imageViewButtonID;
 
    //info array will store current user info passed in from bank
    public String[] info;
+   private int imageViewButtonID;
+    private String[] currentUserInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         //getting the current user sent by BankActivity via setArgument
         currentUserAccessNo = this.getArguments().getInt("CURRENT USER ACCESS NUMBER");
+        currentUserInfo = this.getArguments().getStringArray("CURRENT CUSTOMER INFO ARRAY");
         imageViewButtonID = this.getArguments().getInt("IMAGEVIEW BUTTON ID");
         fragmentView = inflater.inflate(R.layout.account_page, container, false);
 
@@ -59,7 +62,7 @@ public class AccountPageFragment extends Fragment {
     //depending on what account is being displayed on fragment
     public void setUpViews(int imageViewButtonID){
         if(imageViewButtonID == R.id.btn_savingsImage){
-            
+
             txtAccountBalance = fragmentView.findViewById(R.id.txt_accountBalance);
             txtAccountNumber = fragmentView.findViewById(R.id.txt_accountNumber);
 

@@ -99,8 +99,6 @@ public class TransactionsDb {
         ArrayList<Transactions> transactions = new ArrayList<>();
         transactionsDatabase = openHelper.getReadableDatabase();
 
-        //the columns needed
-      //  String[] cols = new String[] {"date","info","amount"};
         String sel = "account like 'S%'";
 
         Cursor result = transactionsDatabase.query(TRANSACTIONS_TABLE,
@@ -115,7 +113,7 @@ public class TransactionsDb {
             String amount = result.getString(AMOUNT_COLUMN);
 
             // putting transaction in arraylist
-            transactions.add(new Transactions(date,acount,info,amount));
+            transactions.add(new Transactions(acount,date,info,amount));
         }
         result.close();
         transactionsDatabase.close();
@@ -145,7 +143,7 @@ public class TransactionsDb {
             String amount = result.getString(AMOUNT_COLUMN);
 
             // putting transaction in arraylist
-            transactions.add(new Transactions(date,acount,info,amount));
+            transactions.add(new Transactions(acount,date,info,amount));
         }
         result.close();
         transactionsDatabase.close();

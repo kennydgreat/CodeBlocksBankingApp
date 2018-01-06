@@ -27,38 +27,47 @@ import android.widget.TextView;
 import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
 
 
+
 /*This activity is for the app's main user page. It
 * 1) Has a Navigation Drawer from which the user can access other parts of the app
 * 2) Handles the lanuching of fragments for each navigation item
 * 3) Has buttons from which users can access their accounts*/
 public class BankActivity extends AppCompatActivity implements BankAccountsSummaryFragment.OnAccountsImageViewButtonClickListener ,
         NavigationView.OnNavigationItemSelectedListener{
+    //Fields
+    Toolbar mainPageToolbar; /*This will be used to
+    1) Allow the user to access the navigation drawer
+    */
+    private ActionBarDrawerToggle  drawerToggle;/*
+    1) This, when attached the toolbar, allows uses to access the navigation drawer*/
 
-    //Allows the user to access the navigation drawer
-    Toolbar mainPageToolbar;
-
-    //1) This, when attached the toolbar, allows user to access the navigation drawer*/
-    public ActionBarDrawerToggle  drawerToggle;
-
-    //This is the drawerlayout that contains the navigationdrawer
-    private DrawerLayout mainUserPageDrawerLayout;
-
+    private DrawerLayout mainUserPageDrawerLayout;/*
+    This is the drawerlayout that contains the navigationdrawer*/
 
     //The NavigationDraw View
-    public NavigationView navigationView;
+    private NavigationView navigationView;
+
+    //arrays that will store the dummy data
+    String[] holderNames;
+    int[] accessNo;
+    String[] passwords;
+    int[] checkAccNo;
+    int [] savAccNo;
+    String[] checkAccFunds;
+    String[] savAccFunds;
 
     //An intent will be passed by login activity to bank
     //with the current users card number which will be used by
     //the bank to update views with user info
-    public String currentCustomerAccessCardNo;
+    private String currentCustomerAccessCardNo;
 
     private String[] currentCustomerInfoArray;
 
+
+    private FragmentManager fragmentManager = getSupportFragmentManager();
     //This the FragmentManager that will manage all fragments that will
     //attach to this activity (Navigation drawer menu items, account pages,
     // account summary page)
-    private FragmentManager fragmentManager = getSupportFragmentManager();
-
     private BankAccountsSummaryFragment bankAccountsSummaryFragment;
 
     //view displaying the customer's name in navigation drawer header
@@ -77,6 +86,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
 
+
         /*Setting this Activity's Theme
         * To use a Naviagtion drawer the Theme has to be a AppCompat theme
         * So a custom theme from appcompat is used */
@@ -92,12 +102,11 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         //Set up NavigationDrawer
         setUpNavigationDrawer();
 
-        //get the incoming intent from LoginActivity
+        //get the incoming intent
         Intent incomingIntent = getIntent();
         currentCustomerAccessCardNo = incomingIntent.getStringExtra("customerAccountNumber");
 
         currentCustomerInfoArray = currentCustomerInfo(currentCustomerAccessCardNo);
-
         launchBankAccountSummaryFragment();
 
         //display customer name on navigation header with welcome message
@@ -119,7 +128,8 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         args.putStringArray("CURRENT CUSTOMER INFO ARRAY", currentCustomerInfoArray);
 
         bankAccountsSummaryFragment.setArguments(args);
-        fragmentTransaction.replace(R.id.main_user_page_container, bankAccountsSummaryFragment);
+        fragmentTransaction.replace(R.id.main_user_page_container
+                , bankAccountsSummaryFragment);
         fragmentTransaction.commit();
     }
 
@@ -157,15 +167,10 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
     }
-
     //This method sets up the NavigationDrawer
-    /*This implement of on onAccountsImageViewButton
-    * 1) is for laucnhing the correspondsing fragment depending
-    * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
     public void setUpNavigationDrawer(){
         navigationView = findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     //using the customers access card number, get their name from the database
@@ -225,6 +230,9 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         AlertDialog alert = loggingOutDialog.create();
         alert.show();
     }
+/*This implement of on onAccountsImageViewButton
+    * 1) is for laucnhing the correspondsing fragment depending
+    * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
 
     @Override
     public void onAccountsImageViewButton(int imageViewButtonID) {
@@ -268,16 +276,23 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
+        Bundle args = new Bundle();
+        args.putStringArray("CURRENT CUSTOMER INFO ARRAY", currentCustomerInfoArray);
         switch (item.getItemId()) {
-
+            //Start up the  MakeTransactionFragment fragment
             case R.id.make_transactions_menu_item: {
                 MakeTransactionFragment makeTransactionFragment = new MakeTransactionFragment();
+                makeTransactionFragment.setArguments(args);
                 fragmentTransaction.replace(R.id.main_user_page_container
                         , makeTransactionFragment);
+
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
+            }
+            //Log out the user
+            case R.id.logout_menu_item:{
+                createLoggingOutDialog(this);
             }
         }
         //close navigation drawer
