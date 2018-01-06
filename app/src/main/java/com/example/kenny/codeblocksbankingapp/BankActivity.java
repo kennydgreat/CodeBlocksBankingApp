@@ -231,4 +231,9 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         mainUserPageDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+    //This called by the MakeTransactionFragment when cancel button is clicked
+    //it removes the fragment
+    public void onMakeTransactionCancelButtonClick(){
+        fragmentManager.popBackStack();
+    }
 }
