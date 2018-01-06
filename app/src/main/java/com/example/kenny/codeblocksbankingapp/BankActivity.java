@@ -1,17 +1,23 @@
 package com.example.kenny.codeblocksbankingapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.media.RatingCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -219,6 +225,12 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         return true;
     }
 
+    //override backout function to ensure the user logs out first
+    @Override
+    public void onBackPressed(){
+        createLoggingOutDialog(this);
+    }
+
     //using the customers access card number, get their name from the database
     public String[] currentCustomerInfo(String id){
 
@@ -242,15 +254,41 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         return custInfo;
     }
 
-    //provide the info of the current user
-    public String[] getCurrentCustomerInfoArray(){
-        return currentCustomerInfoArray;
-    }
-
     //This called by the MakeTransactionFragment when cancel button is clicked
     //it removes the fragment
     public void onMakeTransactionCancelButtonClick(){
         fragmentManager.popBackStack();
     }
+
+    //logging out dialog to be called when user taps backout or clicks log out button
+    public void createLoggingOutDialog(Context context){
+        final AlertDialog.Builder loggingOutDialog = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom));
+        loggingOutDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        loggingOutDialog.setTitle("Log Out?");
+        loggingOutDialog.setMessage("Are you sure you want to log out?");
+
+        loggingOutDialog.setCancelable(true);
+
+        loggingOutDialog.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int id) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        loggingOutDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int id) {
+                dialogInterface.cancel();
+            }
+        });
+
+
+        AlertDialog alert = loggingOutDialog.create();
+        alert.show();
+    }
+
+
 
 }

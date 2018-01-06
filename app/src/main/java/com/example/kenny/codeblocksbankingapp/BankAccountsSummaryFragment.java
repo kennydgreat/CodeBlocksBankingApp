@@ -62,9 +62,7 @@ public class BankAccountsSummaryFragment extends Fragment{
 
         masterBank = new BankActivity();
        //info = masterBank.getCurrentCustomerInfoArray();
-       info = getArguments().getStringArray("CURRENT CUSTOMER INFO ARRAY");
-        //setUpTextViews();
-
+        info = getArguments().getStringArray("CURRENT CUSTOMER INFO ARRAY");
 
         setupClickableImageViews();
         setUpTextViews();
