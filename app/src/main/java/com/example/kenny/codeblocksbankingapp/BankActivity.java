@@ -225,10 +225,14 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         return true;
     }
 
-    //override backout function to ensure the user logs out first
+    //override backPressed function to ensure the user logs out first
     @Override
     public void onBackPressed(){
-        createLoggingOutDialog(this);
+        if(bankAccountsSummaryFragment != null && bankAccountsSummaryFragment.isVisible()){
+            createLoggingOutDialog(this);
+        }else{
+            super.onBackPressed();
+        }
     }
 
     //using the customers access card number, get their name from the database
@@ -288,7 +292,5 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         AlertDialog alert = loggingOutDialog.create();
         alert.show();
     }
-
-
 
 }

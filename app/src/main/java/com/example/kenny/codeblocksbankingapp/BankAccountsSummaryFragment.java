@@ -46,7 +46,7 @@ public class BankAccountsSummaryFragment extends Fragment{
     private TextView txt_savingsAccountDescription;
 
     //Bankactivity reference
-    private BankActivity masterBank;
+    public BankActivity masterBank;
 
     public String[] info;
 
