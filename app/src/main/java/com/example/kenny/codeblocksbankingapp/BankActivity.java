@@ -45,7 +45,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     //An intent will be passed by login activity to bank
     //with the current users card number which will be used by
     //the bank to update views with user info
-    private String currentCustomerAccessCardNo;
+    public String currentCustomerAccessCardNo;
 
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -158,15 +158,17 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
 
         CustomerDatabase custDb = new CustomerDatabase(getApplicationContext());
 
-        custInfo = new String[]{custDb.getCustomerNameByAccessNo(id),
+        custInfo = new String[]{
                 //0
-                custDb.getCustomerCheckAccNoByAccessNo(id),
+                custDb.getCustomerNameByAccessNo(id),
                 //1
-                custDb.getCustomerCheckAccFundsByAccessNo(id),
+                custDb.getCustomerCheckAccNoByAccessNo(id),
                 //2
-                custDb.getCustomerSavingsAccNoByAccessNo(id),
+                custDb.getCustomerCheckAccFundsByAccessNo(id),
                 //3
-                custDb.getCustomerCheckAccFundsByAccessNo(id)
+                custDb.getCustomerSavingsAccNoByAccessNo(id),
+                //4
+                custDb.getCustomerSavingsAccFundsByAccessNo(id)
         };
 
         return custInfo;
