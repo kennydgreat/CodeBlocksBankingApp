@@ -22,8 +22,10 @@ public class LoginActivity extends Activity {
     String[] checkAccFunds;
     String[] savAccFunds;
 
+    //views
     EditText edtAccessCardNo;
     EditText edtPassword;
+
     TextView txtErrorDisplay;
 
     Button btnLogin;
@@ -44,38 +46,37 @@ public class LoginActivity extends Activity {
         checkAccFunds = getResources().getStringArray(R.array.dummy_checking_account_funds);
         savAccFunds = getResources().getStringArray(R.array.dummy_savings_account_funds);
 
+        //call method to populate database
         getAndSaveDummyHolders();
 
-
+        //initialize views
         edtAccessCardNo = findViewById(R.id.edt_accessCard);
         edtPassword = findViewById(R.id.edt_password);
 
         txtErrorDisplay = findViewById(R.id.txt_errorDisplay);
 
         btnLogin = findViewById(R.id.btn_logIn);
-
-        final BankActivity masterBank = new BankActivity();
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //check if there is data in edit texts
                 if(edtAccessCardNo.length() != 0 || edtPassword.length() != 0){
                     String accessNoInput = edtAccessCardNo.getText().toString();
                     String passwordInput = edtPassword.getText().toString();
-
+                    //store results of isVerified to allow/deny access
                     boolean checkVerify = isVerifiedUser(accessNoInput, passwordInput);
 
                     if(checkVerify){
                         //if verified start bank activity and pass the access card number
-                        Intent openBankACcount = new Intent(getApplicationContext(), BankActivity.class);
-                        openBankACcount.putExtra("customerAccountNumber",accessNoInput);
-                        startActivity(openBankACcount);
+                        Intent accessBank = new Intent(getApplicationContext(), BankActivity.class);
+                        accessBank.putExtra("customerAccountNumber",accessNoInput);
+                        startActivity(accessBank);
                     }else{
-                        txtErrorDisplay.setText("* Unable to login. Check that you entered the information correctly.");
+                        txtErrorDisplay.setText(getResources().getString(R.string.errorLoggingInString));
                     }
                 }else{
-                    edtAccessCardNo.setHint("This is a required field");
-                    edtPassword.setHint("This is a required field");
+                    edtAccessCardNo.setHint(getResources().getString(R.string.requiredFieldString));
+                    edtPassword.setHint(getResources().getString(R.string.requiredFieldString));
                 }
             }
         });
@@ -98,7 +99,7 @@ public class LoginActivity extends Activity {
 
     }
 
-    //verify the user using method in customer database
+    //provide credentials to database to verify user
     public boolean isVerifiedUser(String userAccessCard, String userPassword){
         CustomerDatabase custDb = new CustomerDatabase(this);
 

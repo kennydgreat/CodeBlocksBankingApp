@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 /**
  * Created by Diego on 1/4/2018.
+ *
+ * This calls models the customer database the bank will use to query all the customers information
  */
 
 public class CustomerDatabase{
-
-
 
     private SQLiteDatabase database;
     private SQLiteOpenHelper openHelper;
@@ -49,7 +49,7 @@ public class CustomerDatabase{
     public static final String SAVINGS_ACCOUNT_NO = "saveAccNo";
     public static final int SAVINGS_ACCOUNT_NO_COLUMN = 6;
 
-    //DDL for creating the db
+    //DDL for creating the customer database
     public static final String CREATE_CUSTOMER_TABLE =
             "CREATE TABLE " + CUSTOMER_TABLE + " (" +
                     CARD_ACCESS_NO + " INTEGER PRIMARY KEY, " +
@@ -65,7 +65,7 @@ public class CustomerDatabase{
         openHelper = new DBHelper(context, DB_Name, DB_Version);
     }
 
-    //method to store accountHolder objects into the database
+    //Store accountHolder objects into the database
     public AccountHolder saveAccHolder(AccountHolder holder){
         database = openHelper.getWritableDatabase();
 
@@ -78,12 +78,9 @@ public class CustomerDatabase{
         values.put(SAVINGS_ACCOUNT_NO, holder.getSavingsAccountNo());
         values.put(SAVINGS_ACCOUNT_FUNDS, holder.getSavingsAccountFunds());
 
-      long id = database.insert(CUSTOMER_TABLE, null, values);
-
+        long id = database.insert(CUSTOMER_TABLE, null, values);
         holder.setDbId(id);
-
         database.close();
-
         return holder;
     }
 
@@ -110,7 +107,7 @@ public class CustomerDatabase{
         }
     }
 
-    /**Method will be used by the login activity to check if user is authorized */
+    //provide verification for the log in activity
     public int login(String accessNo, String password){
         database = openHelper.getReadableDatabase();
         String[] selectArgs = new String[]{accessNo,password};
@@ -123,10 +120,12 @@ public class CustomerDatabase{
             i = cursor.getCount();
             cursor.close();
             database.close();
+            //returns 1
             return i;
         }
         catch (Exception e){ e.printStackTrace();}
 
+        //credentials do not match or are not fund in database
         return 0;
     }
 

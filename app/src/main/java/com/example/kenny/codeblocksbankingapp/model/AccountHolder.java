@@ -2,6 +2,8 @@ package com.example.kenny.codeblocksbankingapp.model;
 
 /**
  * Created by diego on 2018-01-02.
+ *
+ * This class models account holder objects which represent customers of the bank
  */
 
 public class AccountHolder{
@@ -11,11 +13,11 @@ public class AccountHolder{
     private int accessCardNo;
     private String password;
 
-    //will be used as foreign keys to other databases
+    //account numbers
     private int checkingAccountNo;
     private int savingsAccountNo;
 
-    //funds in account types
+    //funds available each in account type
     private String checkingAccountFunds;
     private String savingsAccountFunds;
 

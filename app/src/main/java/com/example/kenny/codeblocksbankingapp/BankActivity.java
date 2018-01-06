@@ -33,27 +33,19 @@ import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
 * 3) Has buttons from which users can access their accounts*/
 public class BankActivity extends AppCompatActivity implements BankAccountsSummaryFragment.OnAccountsImageViewButtonClickListener ,
         NavigationView.OnNavigationItemSelectedListener{
-    //Fields
-    Toolbar mainPageToolbar; /*This will be used to
-    1) Allow the user to access the navigation drawer
-    */
-    public ActionBarDrawerToggle  drawerToggle;/*
-    1) This, when attached the toolbar, allows uses to access the navigation drawer*/
 
-    private DrawerLayout mainUserPageDrawerLayout;/*
-    This is the drawerlayout that contains the navigationdrawer*/
+    //Allows the user to access the navigation drawer
+    Toolbar mainPageToolbar;
+
+    //1) This, when attached the toolbar, allows user to access the navigation drawer*/
+    public ActionBarDrawerToggle  drawerToggle;
+
+    //This is the drawerlayout that contains the navigationdrawer
+    private DrawerLayout mainUserPageDrawerLayout;
+
 
     //The NavigationDraw View
     public NavigationView navigationView;
-
-    //arrays that will store the dummy data
-    String[] holderNames;
-    int[] accessNo;
-    String[] passwords;
-    int[] checkAccNo;
-    int [] savAccNo;
-    String[] checkAccFunds;
-    String[] savAccFunds;
 
     //An intent will be passed by login activity to bank
     //with the current users card number which will be used by
@@ -67,9 +59,9 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     // account summary page)
     private FragmentManager fragmentManager = getSupportFragmentManager();
 
-
     private BankAccountsSummaryFragment bankAccountsSummaryFragment;
 
+    //view displaying the customer's name in navigation drawer header
     public TextView txtUserNameDisplay;
 
 
@@ -100,7 +92,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         //Set up NavigationDrawer
         setUpNavigationDrawer();
 
-        //get the incoming intent
+        //get the incoming intent from LoginActivity
         Intent incomingIntent = getIntent();
         currentCustomerAccessCardNo = incomingIntent.getStringExtra("customerAccountNumber");
 
@@ -108,7 +100,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
 
         launchBankAccountSummaryFragment();
 
-        //display customer name on navegation header with welcome message
+        //display customer name on navigation header with welcome message
         txtUserNameDisplay = findViewById(R.id.txt_userNameDisplay);
         View headerView = navigationView.getHeaderView(0);
         txtUserNameDisplay = headerView.findViewById(R.id.txt_userNameDisplay);
@@ -167,14 +159,72 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     }
 
     //This method sets up the NavigationDrawer
+    /*This implement of on onAccountsImageViewButton
+    * 1) is for laucnhing the correspondsing fragment depending
+    * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
     public void setUpNavigationDrawer(){
         navigationView = findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
-    /*This implement of on onAccountsImageViewButton
-    * 1) is for laucnhing the correspondsing fragment depending
-    * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
+
+    //using the customers access card number, get their name from the database
+    public String[] currentCustomerInfo(String id){
+
+        String[] custInfo;
+
+        CustomerDatabase custDb = new CustomerDatabase(getApplicationContext());
+
+        custInfo = new String[]{
+                //0
+                custDb.getCustomerNameByAccessNo(id),
+                //1
+                custDb.getCustomerCheckAccNoByAccessNo(id),
+                //2
+                custDb.getCustomerCheckAccFundsByAccessNo(id),
+                //3
+                custDb.getCustomerSavingsAccNoByAccessNo(id),
+                //4
+                custDb.getCustomerSavingsAccFundsByAccessNo(id)
+        };
+
+        return custInfo;
+    }
+
+    //This called by the MakeTransactionFragment when cancel button is clicked
+    //it removes the fragment
+    public void onMakeTransactionCancelButtonClick(){
+        fragmentManager.popBackStack();
+    }
+
+    //logging out dialog to be called when user taps backout or clicks log out button
+    public void createLoggingOutDialog(Context context){
+        final AlertDialog.Builder loggingOutDialog = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom));
+        loggingOutDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        loggingOutDialog.setTitle("Log Out?");
+        loggingOutDialog.setMessage("Are you sure you want to log out?");
+
+        loggingOutDialog.setCancelable(true);
+
+        loggingOutDialog.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int id) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        loggingOutDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int id) {
+                dialogInterface.cancel();
+            }
+        });
+
+
+        AlertDialog alert = loggingOutDialog.create();
+        alert.show();
+    }
 
     @Override
     public void onAccountsImageViewButton(int imageViewButtonID) {
@@ -243,64 +293,6 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         }else{
             super.onBackPressed();
         }
-    }
-
-    //using the customers access card number, get their name from the database
-    public String[] currentCustomerInfo(String id){
-
-        String[] custInfo;
-
-        CustomerDatabase custDb = new CustomerDatabase(getApplicationContext());
-
-        custInfo = new String[]{
-                //0
-                custDb.getCustomerNameByAccessNo(id),
-                //1
-                custDb.getCustomerCheckAccNoByAccessNo(id),
-                //2
-                custDb.getCustomerCheckAccFundsByAccessNo(id),
-                //3
-                custDb.getCustomerSavingsAccNoByAccessNo(id),
-                //4
-                custDb.getCustomerSavingsAccFundsByAccessNo(id)
-        };
-
-        return custInfo;
-    }
-
-    //This called by the MakeTransactionFragment when cancel button is clicked
-    //it removes the fragment
-    public void onMakeTransactionCancelButtonClick(){
-        fragmentManager.popBackStack();
-    }
-
-    //logging out dialog to be called when user taps backout or clicks log out button
-    public void createLoggingOutDialog(Context context){
-        final AlertDialog.Builder loggingOutDialog = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom));
-        loggingOutDialog.setIcon(android.R.drawable.ic_dialog_alert);
-        loggingOutDialog.setTitle("Log Out?");
-        loggingOutDialog.setMessage("Are you sure you want to log out?");
-
-        loggingOutDialog.setCancelable(true);
-
-        loggingOutDialog.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int id) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        loggingOutDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int id) {
-                dialogInterface.cancel();
-            }
-        });
-
-
-        AlertDialog alert = loggingOutDialog.create();
-        alert.show();
     }
 
 }

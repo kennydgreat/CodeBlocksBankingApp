@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 /*This fragment handles the Savings Account page where users can
 * 1) See their balance
-* 2) See the transaction on this account*/
+* 2) See a transaction history on the current account*/
 public class AccountPageFragment extends Fragment {
-    //Fields
-// The root UI of the fragment
+
+    // The root UI of the fragment
    private View fragmentView;
 
    //text views to display account information
@@ -30,18 +30,15 @@ public class AccountPageFragment extends Fragment {
    public TextView txtAccountNumber;
 
 
-    //This listView is for the list of transactions on the checking
-    // account
+    //display for the transactions history
    public ListView transaction_listview;
 
     // This list view is for the header of the transaction listView
    public int currentUserAccessNo;
    public int imageViewButtonID;
 
-   //info will store current user info passed in from bank
+   //info array will store current user info passed in from bank
    public String[] info;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +56,7 @@ public class AccountPageFragment extends Fragment {
     }
 
     //This method sets up the view to display account information
-    //depending on what account is to displayed on fragment
+    //depending on what account is being displayed on fragment
     public void setUpViews(int imageViewButtonID){
         if(imageViewButtonID == R.id.btn_savingsImage){
             
@@ -94,7 +91,8 @@ public class AccountPageFragment extends Fragment {
         }
 
     }
-    // displays the transaction on the listview depending on what account
+
+    // displays the transaction on the listView depending on what account
     //button launched the fragment
     private void displayTransactions(int imageViewButtonID){
         transaction_listview = fragmentView.findViewById(R.id.accounts_transaction_listview);

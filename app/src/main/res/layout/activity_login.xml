@@ -27,7 +27,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:textAlignment="center"
-            android:textColor="@color/colorWarning"
+            android:textColor="@android:color/white"
             tools:text="Errors here" />
 
         <EditText
