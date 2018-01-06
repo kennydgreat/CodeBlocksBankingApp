@@ -160,24 +160,24 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         int currentUserAccessNumber = 345;
         args.putInt("CURRENT USER ACCESS NUMBER",currentUserAccessNumber);
         switch (imageViewButtonID){
-            case R.id.savings_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.savings_imageview_button);
+            case R.id.btn_savingsImage:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.btn_savingsImage);
                 accountPageFragment.setArguments(args);
                 fragmentTransaction.replace(R.id.main_user_page_container
                         , accountPageFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
-            case R.id.checkings_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.checkings_imageview_button);
+            case R.id.btn_checkingImage:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.btn_checkingImage);
                 accountPageFragment.setArguments(args);
                 fragmentTransaction.replace(R.id.main_user_page_container
                         , accountPageFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
-            case R.id.investments_imageview_button:
-                args.putInt("IMAGEVIEW BUTTON ID",R.id.investments_imageview_button);
+            case R.id.btn_investmentsImage:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.btn_investmentsImage);
                 accountPageFragment.setArguments(args);
                 fragmentTransaction.replace(R.id.main_user_page_container
                         , accountPageFragment);

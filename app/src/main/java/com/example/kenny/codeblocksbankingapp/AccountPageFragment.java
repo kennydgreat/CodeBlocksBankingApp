@@ -47,7 +47,7 @@ public class AccountPageFragment extends Fragment {
     //This method sets up the view to display account information
     //depending on what account is to displayed on fragment
     public void setUpViews(int imageViewButtonID){
-        if(imageViewButtonID == R.id.savings_imageview_button){
+        if(imageViewButtonID == R.id.btn_savingsImage){
             first_account_discription_textview = fragmentView.
                     findViewById(R.id.txt_accounts_balance_discription);
             second_account_discription_textview = fragmentView.
@@ -57,7 +57,7 @@ public class AccountPageFragment extends Fragment {
                     getResources().getString(R.string.transactions_message_for_account_page), 500.00));
         }
 
-        if(imageViewButtonID == R.id.checkings_imageview_button){
+        if(imageViewButtonID == R.id.btn_checkingImage){
             first_account_discription_textview = fragmentView.
                     findViewById(R.id.txt_accounts_balance_discription);
             second_account_discription_textview = fragmentView.
@@ -67,7 +67,7 @@ public class AccountPageFragment extends Fragment {
                     getResources().getString(R.string.transactions_message_for_account_page), 500.00));
         }
 
-        if(imageViewButtonID == R.id.investments_imageview_button){
+        if(imageViewButtonID == R.id.btn_investmentsImage){
             first_account_discription_textview = fragmentView.
                     findViewById(R.id.txt_accounts_balance_discription);
             second_account_discription_textview = fragmentView.
@@ -90,7 +90,7 @@ public class AccountPageFragment extends Fragment {
         info.add("Apple Inc.");
         TransactionListViewAdapter transactionListViewAdapter;
 
-        if (imageViewButtonID == R.id.checkings_imageview_button){
+        if (imageViewButtonID == R.id.btn_checkingImage){
             transactionListViewAdapter = new TransactionListViewAdapter(
                     this.getContext(),
                     R.layout.transactions_listview_layout,

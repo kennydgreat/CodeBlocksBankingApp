@@ -7,15 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-<<<<<<< HEAD
+
 import android.widget.TextView;
 
 import com.example.kenny.codeblocksbankingapp.BankActivity;
-=======
+
 import android.widget.ListView;
 
 import java.util.ArrayList;
->>>>>>> 8c4977b2d894e944babdc16049d4cc865d3cdd5f
+
 
 /**
  * Fragment for display the accounts summary page
@@ -36,7 +36,6 @@ public class BankAccountsSummaryFragment extends Fragment{
     private ImageView checkings_imageview_button;
     private ImageView investments_imageview_button;
 
-<<<<<<< HEAD
     //Displays for the amounts in each account
     //TODO: add investment amount and account number to database and update the view
     private TextView txt_checkingAmount;
@@ -45,10 +44,7 @@ public class BankAccountsSummaryFragment extends Fragment{
 
     //Displays for the account number
     private TextView txt_savingsAccountDescription;
-=======
 
-
->>>>>>> 8c4977b2d894e944babdc16049d4cc865d3cdd5f
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,7 +89,7 @@ public class BankAccountsSummaryFragment extends Fragment{
         txt_savingsAmount = fragmentView.findViewById(R.id.txt_savingsAmountDisplay);
         txt_InvestmentAmount = fragmentView.findViewById(R.id.txt_investmentsAmountDisplay);
 
-        txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_savingsAccountDescription);
+        //txt_savingsAccountDescription = fragmentView.findViewById(R.id.txt_savingsAccountDescription);
 
         loadCustomerInfo = masterBank.currentCustomerInfo(masterBank.currentCustomerAccessCardNo);
 
@@ -126,7 +122,7 @@ public class BankAccountsSummaryFragment extends Fragment{
             public void onClick(View view) {
 
                 onAccountsImageViewButtonClickListener.
-                        onAccountsImageViewButton(R.id.checkings_imageview_button);
+                        onAccountsImageViewButton(R.id.btn_checkingImage);
             }
         });
 
@@ -134,7 +130,7 @@ public class BankAccountsSummaryFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 onAccountsImageViewButtonClickListener.
-                        onAccountsImageViewButton(R.id.investments_imageview_button);
+                        onAccountsImageViewButton(R.id.btn_investmentsImage);
             }
         });
     }
