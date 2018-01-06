@@ -30,7 +30,7 @@ public class AccountPageFragment extends Fragment {
 
     // This list view is for the header of the transaction listView
 
-   private int currentUserAccessNo;
+   public int currentUserAccessNo;
    private int imageViewButtonID;
 
     @Override
