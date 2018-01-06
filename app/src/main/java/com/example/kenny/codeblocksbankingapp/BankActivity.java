@@ -3,12 +3,16 @@ package com.example.kenny.codeblocksbankingapp;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +24,8 @@ import com.example.kenny.codeblocksbankingapp.model.CustomerDatabase;
 * 1) Has a Navigation Drawer from which the user can access other parts of the app
 * 2) Handles the lanuching of fragments for each navigation item
 * 3) Has buttons from which users can access their accounts*/
-public class BankActivity extends AppCompatActivity implements BankAccountsSummaryFragment.OnAccountsImageViewButtonClickListener {
+public class BankActivity extends AppCompatActivity implements BankAccountsSummaryFragment.OnAccountsImageViewButtonClickListener ,
+        NavigationView.OnNavigationItemSelectedListener{
     //Fields
     Toolbar mainPageToolbar; /*This will be used to
     1) Allow the user to access the navigation drawer
@@ -31,7 +36,8 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     private DrawerLayout mainUserPageDrawerLayout;/*
     This is the drawerlayout that contains the navigationdrawer*/
 
-
+    //The NavigationDraw View
+    private NavigationView navigationView;
 
     //arrays that will store the dummy data
     String[] holderNames;
@@ -52,7 +58,7 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
     //This the FragmentManager that will manage all fragments that will
     //attach to this activity (Navigation drawer menu items, account pages,
     // account summary page)
-
+    private Bundle args = new Bundle();
     private BankAccountsSummaryFragment bankAccountsSummaryFragment;
 
 
@@ -81,10 +87,11 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         setUpActionBar(mainPageToolbar);
         launchBankAccountSummaryFragment();
 
+        //Set up NavigationDrawer
+        setUpNavigationDrawer();
         //get the incoming intent
         Intent incomingIntent = getIntent();
         currentCustomerAccessCardNo = incomingIntent.getStringExtra("customerAccountNumber");
-
 
     }
 
@@ -92,6 +99,12 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();
         bankAccountsSummaryFragment = new BankAccountsSummaryFragment();
+        Bundle args = new Bundle();
+        ///Put info into args bundle here
+        //
+
+       /// for example args.putInt();
+        bankAccountsSummaryFragment.setArguments(args);
         fragmentTransaction.add(R.id.main_user_page_container
                 , bankAccountsSummaryFragment);
         fragmentTransaction.commit();
@@ -131,19 +144,43 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
     }
-
-
+    //This method sets up the NavigationDrawer
+    public void setUpNavigationDrawer(){
+        navigationView = findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
     /*This implement of on onAccountsImageViewButton
     * 1) is for laucnhing the correspondsing fragment depending
     * on what Accounts imageView was clicked on the BankAccountsSummaryFragment*/
     @Override
     public void onAccountsImageViewButton(int imageViewButtonID) {
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AccountPageFragment accountPageFragment = new AccountPageFragment();
+        int currentUserAccessNumber = 345;
+        args.putInt("CURRENT USER ACCESS NUMBER",currentUserAccessNumber);
         switch (imageViewButtonID){
-            case R.id.btn_savingsImage:
-                FragmentTransaction fragmentTransaction =
-                        fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.main_user_page_container
-                        , new SavingsPageFragment());
+            case R.id.savings_imageview_button:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.savings_imageview_button);
+                accountPageFragment.setArguments(args);
+                fragmentTransaction.replace(R.id.main_user_page_container
+                        , accountPageFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                break;
+            case R.id.checkings_imageview_button:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.checkings_imageview_button);
+                accountPageFragment.setArguments(args);
+                fragmentTransaction.replace(R.id.main_user_page_container
+                        , accountPageFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                break;
+            case R.id.investments_imageview_button:
+                args.putInt("IMAGEVIEW BUTTON ID",R.id.investments_imageview_button);
+                accountPageFragment.setArguments(args);
+                fragmentTransaction.replace(R.id.main_user_page_container
+                        , accountPageFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
@@ -172,5 +209,26 @@ public class BankActivity extends AppCompatActivity implements BankAccountsSumma
         return custInfo;
     }
 
+    //This method is the callback method for Navigation Listener
+    //It's called when Item on the the Navigation Drawer is clicked
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        switch (item.getItemId()) {
+
+            case R.id.make_transactions_menu_item: {
+                MakeTransactionFragment makeTransactionFragment = new MakeTransactionFragment();
+                fragmentTransaction.replace(R.id.main_user_page_container
+                        , makeTransactionFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                break;
+            }
+        }
+        //close navigation drawer
+        mainUserPageDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

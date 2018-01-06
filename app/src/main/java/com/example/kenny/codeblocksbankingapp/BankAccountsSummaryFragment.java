@@ -12,7 +12,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- * Created by kenny on 2018-01-03.
+ * Fragment for display the accounts summary page
  */
 
 public class BankAccountsSummaryFragment extends Fragment{
@@ -31,10 +31,14 @@ public class BankAccountsSummaryFragment extends Fragment{
     private ImageView investments_imageview_button;
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
       fragmentView = inflater.inflate(R.layout.fragment_bank_accounts_summary_page, container, false);
+        // Get the values like this
+        //amount.setText(this.getArguments().getInt("SOME STRING KEY FOR THIS INFO"))
         setupClickableImageViews();
         return fragmentView;
     }

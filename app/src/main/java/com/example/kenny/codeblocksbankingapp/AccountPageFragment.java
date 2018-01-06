@@ -49,9 +49,9 @@ public class AccountPageFragment extends Fragment {
     public void setUpViews(int imageViewButtonID){
         if(imageViewButtonID == R.id.savings_imageview_button){
             first_account_discription_textview = fragmentView.
-                    findViewById(R.id.frist_account_description_textview);
+                    findViewById(R.id.txt_accounts_balance_discription);
             second_account_discription_textview = fragmentView.
-                    findViewById(R.id.second_account_discription_textview);
+                    findViewById(R.id.txt_accounts_transactions_discription);
             first_account_discription_textview.setText(getResources().getString(R.string.saving_total));
             second_account_discription_textview.setText(String.format(
                     getResources().getString(R.string.transactions_message_for_account_page), 500.00));
@@ -59,9 +59,9 @@ public class AccountPageFragment extends Fragment {
 
         if(imageViewButtonID == R.id.checkings_imageview_button){
             first_account_discription_textview = fragmentView.
-                    findViewById(R.id.frist_account_description_textview);
+                    findViewById(R.id.txt_accounts_balance_discription);
             second_account_discription_textview = fragmentView.
-                    findViewById(R.id.second_account_discription_textview);
+                    findViewById(R.id.txt_accounts_transactions_discription);
             first_account_discription_textview.setText(getResources().getString(R.string.checkings_funds));
             second_account_discription_textview.setText(String.format(
                     getResources().getString(R.string.transactions_message_for_account_page), 500.00));
@@ -69,9 +69,9 @@ public class AccountPageFragment extends Fragment {
 
         if(imageViewButtonID == R.id.investments_imageview_button){
             first_account_discription_textview = fragmentView.
-                    findViewById(R.id.frist_account_description_textview);
+                    findViewById(R.id.txt_accounts_balance_discription);
             second_account_discription_textview = fragmentView.
-                    findViewById(R.id.second_account_discription_textview);
+                    findViewById(R.id.txt_accounts_transactions_discription);
             first_account_discription_textview.setText(getResources().getString(R.string.investments_funds));
             second_account_discription_textview.setText(String.format(
                     getResources().getString(R.string.transactions_message_for_account_page), 500.00));
@@ -80,7 +80,7 @@ public class AccountPageFragment extends Fragment {
     }
 
     private void displayTransactions(int imageViewButtonID){
-        transaction_listview = fragmentView.findViewById(R.id.transaction_listview);
+        transaction_listview = fragmentView.findViewById(R.id.accounts_transaction_listview);
         ArrayList<String> info = new ArrayList<String>();
         //{"WTD", "Staples Inc.", "Presto", "Apple Inc."}
         info.add("WTD");

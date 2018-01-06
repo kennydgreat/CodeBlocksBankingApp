@@ -35,6 +35,11 @@
         <item>password5</item>
     </string-array>
 
+    <string-array name="spinner_item">
+        <item>Checking</item>
+        <item>Savings</item>
+
+    </string-array>
     <integer-array name="dummy_checking_account_no">
         <item>1234</item>
         <item>1235</item>
@@ -79,5 +84,10 @@
     <string name="saving_total">Saving total:</string>
     <string name="checkings_funds">Funds:</string>
     <string name="investments_funds">Funds:</string>
+    <string name="who_to_send">Who to send to</string>
+    <string name="amount_to_send">Amount to send</string>
+    <string name="send">Send</string>
+    <string name="cancel">Cancel</string>
+    <string name="account">Account</string>
 
 </resources>
