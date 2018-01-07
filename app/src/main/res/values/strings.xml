@@ -89,6 +89,7 @@
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
     <string name="account">Account</string>
+    <string name="dollarSignString"> $ %s</string>
     <string name="balanceString">Balance: $ %s</string>
     <string name="noString">No: %s</string>
     <string name="welcomeString">Welcome %s</string>

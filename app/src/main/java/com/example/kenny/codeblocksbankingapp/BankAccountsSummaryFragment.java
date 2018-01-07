@@ -75,8 +75,9 @@ public class BankAccountsSummaryFragment extends Fragment{
         txt_savingsAmount = fragmentView.findViewById(R.id.txt_savingsAmountDisplay);
         txt_InvestmentAmount = fragmentView.findViewById(R.id.txt_investmentsAmountDisplay);
 
-        txt_savingsAmount.setText(info[4]);
-        txt_checkingAmount.setText(info[2]);
+        txt_savingsAmount.setText(getResources().getString(R.string.dollarSignString, info[4]));
+        txt_checkingAmount.setText(getResources().getString(R.string.dollarSignString, info[2]));
+        txt_InvestmentAmount.setText(getResources().getString(R.string.dollarSignString, "0.00"));
 
     }
 
