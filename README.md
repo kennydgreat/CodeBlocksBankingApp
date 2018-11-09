@@ -5,6 +5,7 @@ An Android application that mimics a retail banking app. Users can manage accoun
 make transactions, view transactions history and perform login / logout features.
 
 Glisp of transaction feature
+
 ![](app_work_through.gif)
 
 App tutorial 
