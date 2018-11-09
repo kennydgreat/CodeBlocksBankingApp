@@ -4,7 +4,7 @@ Mobile Appilcation principles Project.
 An Android application that mimics a retail banking app. Users can manage accounts, view balances, 
 make transactions, view transactions history and perform login / logout features.
 
-Glisp of transaction feature
+Glimpse of transaction feature
 
 ![](app_work_through.gif)
 
